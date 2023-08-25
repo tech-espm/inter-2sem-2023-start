@@ -17,7 +17,7 @@
 
 ## Descrição do Projeto
 
-Descrição do projeto, incluindo o problema original, e o objetivo final. Pode ser em mais de um parágrafo.
+O Start de uma rede social que busca humanizar as interações entre programadores. Assim, permitindo que eles compartilhem mais do seu dia-a-dia programando com mais naturalidade e sem se prender ao profissionalismo.
 
 # Detalhes de Configuração
 
