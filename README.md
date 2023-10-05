@@ -15,7 +15,7 @@
 - [João Pedro Mascena](https://github.com/mascenaa)
 - [Marty](https://github.com/martz3)
 
-## Descrição do Projeto
+## Descrição do nosso projeto
 
 O Start de uma rede social que busca humanizar as interações entre programadores. Assim, permitindo que eles compartilhem mais do seu dia-a-dia programando com mais naturalidade e sem se prender ao profissionalismo.
 
