@@ -9,11 +9,16 @@
 ### 2023-02
 
 ## Integrantes
-- [Eshley](https://github.com/Eshinha)
+- [Eshley](https://github.com/Eshinha) 
+    - Front-End
 - [Felipe Lira](https://github.com/Felpslira)
+    - Front-End  
 - [Felipe Murakami](https://github.com/Murakami1410)
+    - Front-End
 - [João Pedro Mascena](https://github.com/mascenaa)
+    - Full-Stack
 - [Marty](https://github.com/martz3)
+    - Full-Stack
 
 ## Descrição do nosso projeto
 
