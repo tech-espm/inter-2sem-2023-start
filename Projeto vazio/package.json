@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/app"
+    "start": "tsc && node src/app.js",
+    "dev": "nodemon tsc && node src/app.js"
   },
   "description": "projeto",
   "author": {
@@ -18,7 +19,8 @@
   "devDependencies": {
     "@types/express": "4.17.13",
     "@types/express-serve-static-core": "4.17.24",
-    "@types/node": "14.14.21"
+    "@types/node": "14.14.21",
+    "nodemon": "^3.0.1"
   },
   "engines": {
     "node": ">=12.0.0"
