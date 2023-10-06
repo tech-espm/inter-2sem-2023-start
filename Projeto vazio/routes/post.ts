@@ -1,4 +1,22 @@
-import app = require("teem");
+import app = require('teem')
+
+interface Post {
+     id: number;
+     content: string;
+     conteinImage: boolean;
+     date: Date;
+     userId: number;
+     userName: string;
+     userPhoto: string;
+     specialPost?: boolean;
+}
+
+interface DeletePost {
+     postId: number;
+     userId: number;
+     date: Date;
+}
+
 
 class UserPost {
      public async index(req: app.Request, res: app.Response) {
@@ -6,17 +24,6 @@ class UserPost {
      }
 
      public async create(req: app.Request, res: app.Response) {
-          interface Post {
-               id: number;
-               content: string;
-               conteinImage: boolean;
-               date: Date;
-               userId: number;
-               userName: string;
-               userPhoto: string;
-               specialPost?: boolean;
-          }
-
           let userPost: Post = {
                id: Number(req.query.id),
                content: req.query.content as string,
@@ -31,12 +38,6 @@ class UserPost {
      }
 
      public async delete(req: app.Request, res: app.Response) {
-          interface DeletePost {
-               postId: number;
-               userId: number;
-               date: Date;
-          }
-
           let deletePost: DeletePost = {
                postId: Number(req.query.postId),
                userId: Number(req.query.userId),
