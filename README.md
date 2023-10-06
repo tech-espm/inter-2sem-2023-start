@@ -54,6 +54,12 @@ app_usuarioSenhaPadrao=[SENHA PADRÃO PARA NOVOS USUÁRIOS]
 app_usuarioHashSenhaPadrao=[HASH DA SENHA PADRÃO PARA NOVOS USUÁRIOS]
 # Não utilizar números > 0x7FFFFFFF pois os XOR resultarão em -1
 app_usuarioHashId=[HASH DE 32 BITS PARA O ID EM HEXADECIMAL, COMO 0x1234ABCD]
+FIREBASE_APIKEY="AIzaSyCAGOdBjlg-ieXmSEFK6r-btEIqdvmUw4w"
+FIREBASE_AUTHDOMAIN="start-f90c7.firebaseapp.com"
+FIREBASE_PROJECTID="start-f90c7"
+FIREBASE_STORAGEBUCKET="start-f90c7.appspot.com"
+FIREBASE_MESSAGINGSENDERID="226738184444"
+FIREBASE_APPID="1:226738184444:web:479d851678f96fadbd3779"
 ```
 
 - A pasta `dados` deve ser criada em `/`
