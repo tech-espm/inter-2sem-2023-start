@@ -12,6 +12,7 @@
   "main": "src/app.js",
   "dependencies": {
     "dotenv": "16.3.1",
+    "firebase": "^10.4.0",
     "teem": "0.0.23"
   },
   "devDependencies": {
