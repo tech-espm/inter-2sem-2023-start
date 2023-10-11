@@ -1,5 +1,5 @@
 import app = require("teem");
-
+import Usuario from "../utils/validarUsuario";
 interface UserData {
      id: number;
      name: string;
@@ -20,6 +20,9 @@ class User {
      @app.http.post()
      public async create(req: app.Request, res: app.Response) {
           let user: UserData = req.body;
+
+          let userValidation = new Usuario(user);
+          userValidation.validar();
 
           await app.sql.connect(async (sql) => {
                const insertQuery = `
@@ -43,6 +46,26 @@ class User {
           });
 
           res.json("Testando");
+     }
+
+     @app.http.get()
+     public async search(req: app.Request, res: app.Response) {
+          let search = req.query.id
+
+          await app.sql.connect(async (sql) => {
+               const selectQuery = `
+               select                                        
+                    *
+               from
+                    usuario
+               where
+                    Id_user = ?
+               `;
+
+               const result = await sql.query(selectQuery, [search]);
+               console.log("Usuário lido com sucesso!");
+               res.json(result);
+          });
      }
 
 }
