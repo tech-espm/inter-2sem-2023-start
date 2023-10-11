@@ -39,6 +39,7 @@ class User {
                `;
 
                await sql.query(insertQuery, [user.id, user.name, user.nm_anonimo, user.isAnonimo, user.idade, user.photoURL, user.email, user.password, user.isVerified]);
+               console.log("Usuário criado com sucesso!");
           });
 
           res.json("Testando");
