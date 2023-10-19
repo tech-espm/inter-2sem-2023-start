@@ -17,7 +17,6 @@ interface DeletePost {
      date: Date;
 }
 
-
 class UserPost {
      public async index(req: app.Request, res: app.Response) {
           res.send("Testando");

@@ -1,6 +1,7 @@
 import app = require("teem");
 import Usuario from "../utils/validarUsuario";
-interface UserData {
+
+type UserData = {
      id: number;
      name: string;
      nm_anonimo?: string;
@@ -10,6 +11,11 @@ interface UserData {
      email: string;
      password: string;
      isVerified: number;
+}
+
+type LoginData = {
+     email: string;
+     password: string;
 }
 
 class User {
@@ -26,19 +32,19 @@ class User {
 
           await app.sql.connect(async (sql) => {
                const insertQuery = `
-               insert into
-                    usuario (
-                         Id_user,
-                         Nm_user,
-                         Nm_Anom,
-                         isAnom,
-                         Idade,
-                         Foto,
-                         Email,
-                         Senha,
-                         isVerified
-                    )
-                    values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    insert into
+                         usuario (
+                              Id_user,
+                              Nm_user,
+                              Nm_Anom,
+                              isAnom,
+                              Idade,
+                              Foto,
+                              Email,
+                              Senha,
+                              isVerified
+                         )
+                         values (?, ?, ?, ?, ?, ?, ?, ?, ?)
                `;
 
                await sql.query(insertQuery, [user.id, user.name, user.nm_anonimo, user.isAnonimo, user.idade, user.photoURL, user.email, user.password, user.isVerified]);
@@ -47,6 +53,27 @@ class User {
 
           res.json("Testando");
      }
+
+     @app.http.post()
+     public async login(req: app.Request, res: app.Response) {
+          let user: LoginData = req.body;
+
+          await app.sql.connect(async (sql) => {
+               const selectQuery = `
+                    select                                        
+                         *
+                    from
+                         usuario
+                    where
+                         Email = ? and Senha = ?
+               `;
+
+               const result = await sql.query(selectQuery, [user.email, user.password]);
+               console.log("Usuário logado");
+               res.json(result);
+          });
+     }
+
 
      @app.http.get()
      public async search(req: app.Request, res: app.Response) {
