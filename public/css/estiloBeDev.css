@@ -213,7 +213,8 @@
     justify-content: end;
 }
 
-.card {
+.beneficios__card {
+    background-color: red;
     width: 10%;
 }
 
@@ -262,8 +263,9 @@
         flex-direction: column;
     }
 
-    .card {
-        width: 100%;
+    .beneficios__card {
+        width: 10%;
+        background-color: red;
     }
 }
 
@@ -288,7 +290,7 @@
 }
 
 .containerLgn {
-    width: 50vw;
+    width: 50%;
 }
 
 #login {
@@ -862,7 +864,7 @@
     /* Landing */
 
     .intro__image {
-        width: 60%;
+        width: 100%;
     }
 
     .intro__content {
@@ -886,8 +888,9 @@
         padding: 3rem;
     }
 
-    .card {
-        width: 20%;
+    .beneficios__card {
+        width: 10%;
+        background-color: red;
     }
 
     /* Cadastro */
@@ -915,12 +918,12 @@
 
     #login,
     #cadastro {
-        width: 100vw;
+        width: 100%;
         height: 100vh;
     }
 
     .containerLgn {
-        width: 100vw;
+        width: 100%;
     }
 
     .login_texto {
@@ -965,31 +968,32 @@
 /* TV */
 @media only screen and (min-width: 1025px) {
     .intro__image {
-         width: 40%;
+        width: 40%;
     }
 
     .intro__content {
-         width: 60%;
-         margin: 120px 0;
+        width: 60%;
+        margin: 120px 0;
     }
 
     .diferencial {
-         padding: 6rem;
+        padding: 6rem;
     }
 
     .diferencial__content {
-         width: 50%;
+        width: 50%;
     }
 
     .diferencial__box {
-         padding: 15rem;
+        padding: 15rem;
     }
 
     .beneficios {
-         padding: 4rem;
+        padding: 4rem;
     }
 
-    .card {
-         width: 15%;
+    .beneficios__card {
+        width: 10%;
+        background-color: red;
     }
 }
