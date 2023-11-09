@@ -120,6 +120,7 @@
 }
 
 .intro__button {
+    width: 100%;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -184,6 +185,7 @@
     flex-direction: column;
     gap: 50px;
     padding: 4rem;
+    height: 100vh;
 }
 
 .beneficios__content {
@@ -238,10 +240,7 @@
         display: none;
     }
 
-    .intro__content {
-        width: fit-content;
-        margin: 60px 0;
-    }
+    .intro__content {}
 
     .diferencial {
         padding: 3rem;
@@ -867,10 +866,7 @@
         width: 100%;
     }
 
-    .intro__content {
-        width: 40%;
-        margin: 120px 0;
-    }
+    .intro__content {}
 
     .diferencial {
         padding: 4rem;
@@ -971,10 +967,7 @@
         width: 40%;
     }
 
-    .intro__content {
-        width: 60%;
-        margin: 120px 0;
-    }
+    .intro__content {}
 
     .diferencial {
         padding: 6rem;
