@@ -2,44 +2,35 @@
 
 class IndexRoute {
 	public async index(req: app.Request, res: app.Response) {
-		res.render("index/index");
+		let opcoes = {
+			titulo: "Início"
+		};
+
+		res.render("index/index", opcoes);
 	}
 
-	public async sobre(req: app.Request, res: app.Response) {
+	public async sobrenos(req: app.Request, res: app.Response) {
 		let opcoes = {
-			titulo: "Sobre"
+			titulo: "Sobre Nós"
 		};
 
-		res.render("index/sobre", opcoes);
+		res.render("index/sobrenos", opcoes);
 	}
 
-	public async produtos(req: app.Request, res: app.Response) {
-		let produtoA = {
-			id: 1,
-			nome: "Produto A",
-			valor: 25
-		};
-
-		let produtoB = {
-			id: 2,
-			nome: "Produto B",
-			valor: 15
-		};
-
-		let produtoC = {
-			id: 3,
-			nome: "Produto C",
-			valor: 100
-		};
-
-		let produtosVindosDoBanco = [ produtoA, produtoB, produtoC ];
-
+	public async cadastro(req: app.Request, res: app.Response) {
 		let opcoes = {
-			titulo: "Listagem de Produtos",
-			produtos: produtosVindosDoBanco
+			titulo: "Cadastro"
 		};
 
-		res.render("index/produtos", opcoes);
+		res.render("index/cadastro", opcoes);
+	}
+
+	public async login(req: app.Request, res: app.Response) {
+		let opcoes = {
+			titulo: "Login"
+		};
+
+		res.render("index/login", opcoes);
 	}
 }
 

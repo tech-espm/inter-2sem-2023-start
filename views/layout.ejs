@@ -7,15 +7,19 @@
 </head>
 <body>
 
-	<div class="limitador">
+	<div class="controle">
 
-		<%- include("comum/barra") %>
+		<%- include("comum/barra")  %>
 
 		<div class="conteudo">
 
 			<%- body %>
 
 		</div>
+
+		<%- include("comum/script") %>
+
+		<%- defineContent("espaco-script") %>
 
 		<%- include("comum/rodape") %>
 
