@@ -1,9 +1,10 @@
 import app = require('teem')
+const { storage } = require('../services/firebase');
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 interface Post {
      id: number;
      content: string;
-     conteinImage: boolean;
      date: Date;
      userId: number;
      userName: string;
@@ -22,16 +23,35 @@ class UserPost {
           res.send("Testando");
      }
 
+     @app.http.post()
      public async create(req: app.Request, res: app.Response) {
           let userPost: Post = {
-               id: Number(req.query.id),
-               content: req.query.content as string,
-               conteinImage: Boolean(req.query.conteinImage),
-               date: new Date(req.query.date as string),
-               userId: Number(req.query.userId),
-               userName: req.query.userName as string,
-               userPhoto: req.query.userPhoto as string,
+               id: Number(req.body.id),
+               content: req.body.content as string,
+               date: new Date(req.body.date as string),
+               userId: Number(req.body.userId),
+               userName: req.body.userName as string,
+               userPhoto: req.body.userPhoto as string,
           }
+
+          const storageRef = ref(storage, `${userPost.userId}/${userPost.id}`);
+          const upload = uploadBytesResumable(storageRef, req.body.content);
+
+          upload.on(
+               "state_changed",
+               (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Enviando post para o db: " + progress + "%")
+               },
+               (error) => {
+                    console.error(error);
+               },
+               () => {
+                    getDownloadURL(upload.snapshot.ref).then((downloadURL) => {
+                         console.log("Download do arquivo", downloadURL);
+                    });
+               }
+          )
 
           res.send(userPost);
      }
