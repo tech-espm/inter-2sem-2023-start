@@ -1,31 +1,29 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+
 <head>
 	<%- include("comum/cabecalho") %>
 
-	<%- defineContent("espaco-head") %>
+		<%- defineContent("espaco-head") %>
 </head>
+
 <body>
 
 	<div class="controle">
-
-		<%- include("comum/barra")  %>
-
 		<div class="conteudo">
-
 			<%- body %>
-
 		</div>
 
 		<%- include("comum/script") %>
 
-		<%- defineContent("espaco-script") %>
+			<%- defineContent("espaco-script") %>
 
-		<%- include("comum/rodape") %>
+				<%- include("comum/rodape") %>
 
-		<%- defineContent("espaco-rodape") %>
+					<%- defineContent("espaco-rodape") %>
 
 	</div>
 
 </body>
+
 </html>

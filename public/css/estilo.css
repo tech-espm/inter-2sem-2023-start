@@ -2,12 +2,13 @@ img {
 	max-width: 100%;
 }
 
-html, body {
+html,
+body {
 	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
 	min-height: 100vh;
 }
 
- .controle {
+.controle {
 	max-width: 1200px;
 	margin: 0px auto;
 
@@ -16,9 +17,13 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-} 
+}
 
 .conteudo {
 	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
 	flex: 1 1 auto;
+}
+
+a {
+	text-decoration: none;
 }

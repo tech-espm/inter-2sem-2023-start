@@ -1,43 +1,46 @@
-<div id="login">
-	<div class="containerLgn">
-		<div class="limitador">
-			<div class="coluna1L">
-				<h1 class="titulo2L">BeDev</h1>
-				<h3 class="login_texto">Faça login</h3>
-				<p class="texto2">Caso não possua conta, <a href="cadastro" class="clique">clique aqui</a>
-					para
-					se registrar</p>
+<%- include("../comum/barra.ejs") %>
 
-				<div class="caixoteCad2">
-					<label class="labelCampo" for="email">Email</label>
-					<input id="emailUser" type="text" name="email" autofocus required>
-				</div>
+	<div id="login">
+		<div class="containerLgn">
+			<div class="limitador">
 
-				<div class="caixoteCad2">
-					<label class="labelCampo" for="senha">Senha</label>
-					<div class="senhaEspaco">
-						<input id="senhaUser" type="password" name="senha" autofocus required>
-						<i class="fa-solid fa-eye" id="eye"></i>
+				<div class="coluna1L">
+					<h1 class="titulo2L">BeDev</h1>
+					<h3 class="login_texto">Faça login</h3>
+					<p class="texto2">Caso não possua conta, <a href="cadastro" class="clique">clique aqui</a>
+						para
+						se registrar</p>
+
+					<div class="caixoteCad2">
+						<label class="labelCampo" for="email">Email</label>
+						<input id="emailUser" type="text" name="email" autofocus required>
 					</div>
-				</div>
 
-				<div class="esqSenha">
-					<p><span class="clicavel">Esqueceu sua senha?</span></p>
-				</div>
+					<div class="caixoteCad2">
+						<label class="labelCampo" for="senha">Senha</label>
+						<div class="senhaEspaco">
+							<input id="senhaUser" type="password" name="senha" autofocus required>
+							<i class="fa-solid fa-eye" id="eye"></i>
+						</div>
+					</div>
 
-				<div class="botoesCad">
-					<button class="botaoCad">Entrar</button>
+					<div class="esqSenha">
+						<p><span class="clicavel">Esqueceu sua senha?</span></p>
+					</div>
 
-					<a href="" class="voltarCad">Voltar</a>
+					<div class="botoesCad">
+						<button class="botaoCad">Entrar</button>
+
+						<a href="" class="voltarCad">Voltar</a>
+					</div>
+
 				</div>
 
 			</div>
-
 		</div>
+
+		<div class="preto">
+		</div>
+
+
 	</div>
-
-	<div class="preto">
-	</div>
-
-
-</div>

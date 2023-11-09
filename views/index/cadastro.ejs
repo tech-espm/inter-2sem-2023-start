@@ -1,71 +1,70 @@
-<div id="cadastro">
+<%- include("../comum/barra.ejs") %>
+	<div id="cadastro">
+		<div class="containerCad">
+			<div class="limitador">
+				<div class="coluna1">
+					<h1 class="titulo2">BeDev</h1>
+					<p class="registro">Faça seu registro</p>
+					<p class="pequeno">ou</p>
 
-	<div class="containerCad">
-
-		<div class="limitador">
-			<div class="coluna1">
-				<h1 class="titulo2">BeDev</h1>
-				<p class="registro">Faça seu registro</p>
-				<p class="pequeno">ou</p>
-
-				<a href="https://github.com/login" class="linkLogin">
-					<button class="botao2"><img class="github" src="/public/img/imagens/github-mark-white.svg"
-							width="15px">Conecte-se com o
-						Github
-					</button>
-				</a>
-
-				<p class="texto1">Caso já possua conta, <a href="login" class="clique">clique aqui</a> para
-					logar</p>
-			</div>
-		</div>
-
-		<div class="limitador">
-			<div class="campos">
-
-				<div class="caixoteCad1">
-					<div class="caixa">
-						<label class="labelCampo" for="nome">Nome</label>
-						<input id="nomeUser" type="text" name="nome" autofocus required>
-					</div>
-
-					<div class="caixa">
-						<label class="labelCampo" for="sobrenome">Sobrenome</label>
-						<input id="sobrenomeUser" type="text" name="sobrenome" autofocus required>
-					</div>
-				</div>
-
-				<div class="caixoteCad2">
-					<label class="labelCampo" for="email">Email</label>
-					<input id="emailUser" type="text" name="email" autofocus required>
-				</div>
-
-				<div class="caixoteCad2">
-					<label class="labelCampo" for="senha">Senha</label>
-					<div class="senhaEspaco">
-						<input id="senhaUser" type="password" name="senha" autofocus required>
-						<i class="fa-solid fa-eye" id="eye"></i>
-					</div>
-				</div>
-
-				<div class="quadro">
-					<p class="requisitos">X Possui 8 caracteres</p>
-					<p class="requisitos">X Possui pelo menos 1 número</p>
-					<p class="requisitos">X Possui pelo menos uma letra maiúscula</p>
-				</div>
-
-				<div class="botoesCad">
-					<a href="" class="linkEntrarCad">
-						<button class="botaoCad">Entrar</button>
+					<a href="https://github.com/login" class="linkLogin">
+						<button class="botao2"><img class="github" src="/public/img/imagens/github-mark-white.svg"
+								width="15px">Conecte-se com o
+							Github
+						</button>
 					</a>
 
-					<a href="" class="voltarCad">Voltar</a>
+					<p class="texto1">Caso já possua conta, <a href="login" class="clique">clique aqui</a> para
+						logar</p>
 				</div>
+			</div>
+
+			<div class="limitador">
+				<div class="campos">
+
+					<div class="caixoteCad1">
+						<div class="caixa">
+							<label class="labelCampo" for="nome">Nome</label>
+							<input id="nomeUser" type="text" name="nome" autofocus required>
+						</div>
+
+						<div class="caixa">
+							<label class="labelCampo" for="sobrenome">Sobrenome</label>
+							<input id="sobrenomeUser" type="text" name="sobrenome" autofocus required>
+						</div>
+					</div>
+
+					<div class="caixoteCad2">
+						<label class="labelCampo" for="email">Email</label>
+						<input id="emailUser" type="text" name="email" autofocus required>
+					</div>
+
+					<div class="caixoteCad2">
+						<label class="labelCampo" for="senha">Senha</label>
+						<div class="senhaEspaco">
+							<input id="senhaUser" type="password" name="senha" autofocus required>
+							<i class="fa-solid fa-eye" id="eye"></i>
+						</div>
+					</div>
+
+					<div class="quadro">
+						<p class="requisitos">X Possui 8 caracteres</p>
+						<p class="requisitos">X Possui pelo menos 1 número</p>
+						<p class="requisitos">X Possui pelo menos uma letra maiúscula</p>
+					</div>
+
+					<div class="botoesCad">
+						<a href="" class="linkEntrarCad">
+							<button class="botaoCad">Entrar</button>
+						</a>
+
+						<a href="" class="voltarCad">Voltar</a>
+					</div>
+				</div>
+
 			</div>
 
 		</div>
 
+		<footer class="preto2"></footer>
 	</div>
-
-	<footer class="preto2"></footer>
-</div>
