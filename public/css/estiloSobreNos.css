@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0 auto;
+    padding: 0 auto;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Barra */
+
+.barraNav {
+    background-color: black;
+    height: 64px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.barraBedev {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.barraBedev:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.menu,
+.menuInv {
+    width: 20px;
+    height: 12px;
+
+    margin: 0 0;
+    padding: 0 0;
+
+    margin: 1.5rem;
+}
+
+.menu {
+    cursor: pointer;
+}
+
+.menuInv {
+    visibility: hidden;
+}
+
+/* Sobre nós */
+
+.containerSobreNos,
+.containerEquipe {
+    min-height: 100vh;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.secaoSnos,
+.secaoNobj,
+.secaoTlEq {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.branco,
+.brancoL {
+    height: 64px;
+    width: 100%;
+}
+
+.secaoNobj {
+    flex-direction: row-reverse;
+}
+
+.equipeSecao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.placa1,
+.texto1Sobr,
+.placa2,
+.texto1Obj {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    margin: 20px 0px;
+}
+
+.placa1,
+.placa2 {
+    margin: 1rem 1.5rem;
+}
+
+.texto1Sobr,
+.texto1Obj {
+    margin-top: 24px;
+    margin-bottom: 28px;
+}
+
+.tituloSobre,
+.tituloNos,
+.tituloNosso,
+.tituloObj {
+    background-color: #000000;
+    color: #ffffff;
+    padding: .5rem 1rem;
+    text-align: center;
+    transform: rotate(358deg);
+    border-radius: .5rem;
+
+    font-size: 28px;
+    font-weight: 600;
+
+    margin: 0;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.tituloNos,
+.tituloObj {
+    width: 12rem;
+}
+
+.tituloSobre,
+.tituloNosso {
+    background-color: #ffffff00;
+    color: #000000;
+    transform: rotate(0);
+    font-size: 32px;
+    font-weight: 600;
+    padding: .5rem 0rem;
+    padding-top: 0;
+}
+
+.grampo1 {
+    background-color: rgba(217, 217, 217, 1);
+    height: 1rem;
+    width: 0.25rem;
+    position: absolute;
+    left: 2rem;
+    top: -.5rem;
+    transform: rotate(2deg);
+}
+
+.grampo2 {
+    background-color: rgba(217, 217, 217, 1);
+    height: 1rem;
+    width: 0.25rem;
+    position: absolute;
+    right: 2rem;
+    top: -.5rem;
+    transform: rotate(2deg);
+}
+
+.textoSobreNos,
+.textoNossoObj {
+    margin: 0;
+    font-weight: 600;
+
+    font-size: small;
+    text-align: justify;
+    max-width: 800px;
+
+    padding: 8px 16px;
+}
+
+.nossaEQP {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding: 24px 8px 76px 8px;
+}
+
+.integrante1,
+.integrante2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    padding: 4px 64px;
+}
+
+.integrante2 {
+    margin-top: 24px;
+}
+
+.integranteInv {
+    width: 110px;
+    visibility: hidden;
+}
+
+.equipe {
+    width: 80px;
+    border-radius: 100px;
+    margin-bottom: .5rem;
+}
+
+.redes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    width: 80px;
+}
+
+.integrante1>p,
+.integrante2>p {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: .5rem;
+}
+
+.linkRede {
+    width: 50%;
+    height: 50%;
+
+    margin: 0;
+    padding: 0;
+
+    color: black;
+
+    text-align: center;
+    width: 20px;
+}
+
+.img_Linke,
+.img_Insta {
+    width: 100%;
+    height: 100%;
+
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.limitadorEQ {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* RODAPÉ */
+
+.rodape {
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    padding: 2rem;
+}
+
+.link-rodape,
+.link-rodape:hover {
+    color: white;
+    text-decoration: none;
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /* Sobre nós */
+
+    .containerSobreNos,
+    .containerEquipe {
+        height: 100%;
+    }
+
+    .secaoSnos,
+    .secaoNobj,
+    .secaoTlEq {
+        flex-direction: column;
+    }
+
+    .nossaEQP {
+        padding: 8px 8px 24px 8px;
+    }
+
+    .limitadorEQ {
+        flex-direction: column;
+    }
+
+    .integrante1,
+    .integrante2 {
+        padding: 12px 8px;
+    }
+
+    .branco {
+        display: none;
+    }
+}

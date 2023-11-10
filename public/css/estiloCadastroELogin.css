@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0 auto;
+    padding: 0 auto;
+    font-family: 'Inter', sans-serif;
+}
+
+html,
+body {
+	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
+	min-height: 100vh;
+}
+
+/* Barra */
+
+.barraNav {
+    background-color: black;
+    height: 64px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.barraBedev {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.barraBedev:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.menu,
+.menuInv {
+    width: 20px;
+    height: 12px;
+
+    margin: 0 0;
+    padding: 0 0;
+
+    margin: 1.5rem;
+}
+
+.menu {
+    cursor: pointer;
+}
+
+.menuInv {
+    visibility: hidden;
+}
+
+/* Cadastro */
+
+#cadastro,
+#login,
+#sobrenos,
+.containerCad,
+.containerLgn,
+.containerSobreNos,
+.containerEquipe,
+.coluna1,
+.limitador {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.containerLgn {
+    width: 50%;
+}
+
+#login {
+    flex-direction: row;
+}
+
+.titulo2,
+.titulo2L {
+    margin: 10px 0px 10px 0px;
+    font-size: xx-large;
+    font-weight: 700;
+    text-align: center;
+}
+
+.registro,
+.login_texto {
+    text-align: center;
+    font-size: large;
+    margin: 0;
+}
+
+.pequeno {
+    text-align: center;
+    font-size: 10px;
+    color: rgb(142, 134, 134);
+    font-weight: 300;
+
+    margin: 0;
+    margin: .3rem 0rem;
+}
+
+.linkLogin,
+.linkEntrarCad {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-decoration: none;
+
+    align-items: center;
+    align-content: center;
+    align-self: center;
+
+    margin: 0 0;
+    padding: 0 0;
+    max-width: max-content;
+}
+
+.linkLogin:hover {
+    text-decoration: none;
+}
+
+.linkLogin:hover>button>.github {
+    scale: 1.05;
+}
+
+.linkLogin:hover>button {
+    font-weight: 600;
+}
+
+.texto1,
+.texto2 {
+    font-size: small;
+    color: rgb(82, 82, 82);
+
+    text-align: center;
+    margin: 28px 16px 24px 16px;
+}
+
+.clique {
+    color: black;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.clique:hover {
+    color: black;
+}
+
+.github {
+    margin: 0;
+    margin-right: 0.5rem;
+    padding: auto;
+}
+
+.botao2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+
+    width: 210px;
+    height: 30px;
+    color: white;
+    background-color: black;
+    border: 0px;
+
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+
+    font-size: small;
+
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    margin: 1.5rem;
+    margin-top: 0rem;
+}
+
+.caixoteCad1,
+.caixoteCad2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+
+    width: 375px;
+}
+
+.caixoteCad1 {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 375px;
+    gap: 4px;
+}
+
+.caixa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.labelCampo {
+    font-size: small;
+    text-align: left;
+
+    align-items: start;
+    align-self: self-start;
+    align-content: start;
+
+    margin: .2rem 0;
+}
+
+.senhaEspaco {
+    width: 375px;
+    position: relative;
+}
+
+.fa-eye {
+    position: absolute;
+    top: 28%;
+    right: 4%;
+    cursor: pointer;
+    color: lightgray;
+}
+
+#nomeUser,
+#sobrenomeUser,
+#emailUser,
+#senhaUser {
+    border-radius: 5px;
+    border: solid 1.5px rgba(176, 175, 175, 1);
+    background-color: rgb(244, 244, 244);
+    padding: 4px 4px;
+
+    margin-bottom: .5rem;
+}
+
+#nomeUser {
+    width: 143px;
+    height: 25px;
+}
+
+#sobrenomeUser {
+    width: 218px;
+    height: 25px;
+}
+
+#emailUser,
+#senhaUser {
+    width: 100%;
+    height: 25px;
+}
+
+.quadro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 375px;
+}
+
+.requisitos {
+    font-size: 10px;
+    color: rgb(142, 134, 134);
+    text-align: left;
+
+    margin: 0 0;
+    margin-bottom: .1rem;
+}
+
+.linkEntrarCad:hover {
+    text-decoration: none;
+}
+
+.botoesCad {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    margin: 0rem 0rem;
+
+    max-width: 100%;
+}
+
+.botaoCad {
+    align-items: center;
+    align-self: center;
+
+    width: 375px;
+
+    font-size: small;
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    border: 0px;
+    border-radius: 5px;
+    text-decoration: none;
+
+    margin: 10px 0px 10px 0px;
+    padding: 0.35rem 0.5rem;
+}
+
+.botaoCad:hover {
+    scale: 1.05;
+}
+
+.voltarCad {
+    font-size: 10px;
+    text-decoration: none;
+    color: rgb(142, 134, 134);
+
+    text-align: center;
+    margin: 0px 0px;
+
+    align-self: center;
+    align-items: center;
+
+    display: flex;
+}
+
+.voltarCad:hover {
+    color: rgb(142, 134, 134);
+    text-decoration: underline;
+}
+
+.preto2 {
+    background-color: black;
+    margin: 0 0;
+    padding: 0 0;
+
+    align-items: center;
+    align-self: center;
+}
+
+/* Login */
+
+.login_texto {
+    padding: 0 0;
+}
+
+.texto2 {
+    margin: 0px 0px;
+    margin: .5rem .5rem 2rem .5rem;
+
+    padding: 0px 0px;
+}
+
+.esqSenha {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    font-size: 12px;
+    color: rgb(142, 134, 134);
+
+    margin: 0 0;
+    margin-top: -5px;
+
+    width: 375px;
+}
+
+.esqSenha>p {
+    margin: 0 0;
+    text-align: right;
+
+    padding: 0 0;
+    padding-bottom: 1rem;
+}
+
+.clicavel {
+    cursor: pointer;
+}
+
+.preto {
+    background-color: black;
+    margin: 0 0;
+    padding: 0 0;
+
+    align-items: center;
+    align-self: center;
+
+    height: 89.4vh;
+    width: 50vw;
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /* Cadastro */
+
+    .caixoteCad1 {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .caixa {
+        width: 100%;
+    }
+
+    #nomeUser,
+    #sobrenomeUser {
+        width: 100%;
+    }
+
+    .preto2,
+    .preto {
+        display: none;
+    }
+
+    /* Login */
+
+    #login,
+    #cadastro {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .containerLgn {
+        width: 100%;
+    }
+
+    .login_texto {
+        padding: 1rem;
+    }
+
+    #login {
+        flex-direction: column;
+    }
+}

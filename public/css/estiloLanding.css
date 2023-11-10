@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0 auto;
+    padding: 0 auto;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Barra */
+
+.barraNav {
+    background-color: black;
+    height: 64px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.barraBedev {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.barraBedev:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.menu,
+.menuInv {
+    width: 20px;
+    height: 12px;
+
+    margin: 0 0;
+    padding: 0 0;
+
+    margin: 1.5rem;
+}
+
+.menu {
+    cursor: pointer;
+}
+
+.menuInv {
+    visibility: hidden;
+}
+
+/* Landing */
+
+.header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.header__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.header__title {
+    margin: 0;
+}
+
+.header__subtitle {
+    margin: 0;
+}
+
+.intro {
+    display: flex;
+
+}
+
+.intro__image {
+    width: 60%;
+    display: flex;
+    justify-content: end;
+}
+
+.intro__image img {
+    /* Conteiner com a imagem */
+    width: 80%;
+
+}
+
+.intro__content {
+    /* Conteiner com o texto */
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2rem;
+    width: 40%;
+    margin: 120px 0;
+}
+
+.intro__title {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #6C6C6C;
+}
+
+.intro__heading {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.intro__text {
+    font-size: 1rem;
+    margin: 20px 0;
+}
+
+.intro__button {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #000000;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.intro__button:hover {
+    background-color: #1C1C1C;
+}
+
+.diferencial {
+    background-color: #000000;
+    padding: 6rem;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.diferencial__content {
+    text-align: center;
+    width: 50%;
+    color: white;
+}
+
+.diferencial__title {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.diferencial__text {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.diferencial__box {
+    background-color: #fff;
+    padding: 15rem;
+    margin: 20px 0;
+}
+
+.diferencial__button {
+    margin: 20px 0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+.diferencial__button:hover {
+    background-color: #E5E5E5;
+}
+
+.beneficios {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 4rem;
+    height: 100vh;
+}
+
+.beneficios__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.beneficios__content.right {
+    width: 100%;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+}
+
+.beneficios__title {
+    font-size: 2.2rem;
+    margin: 20px 0;
+}
+
+.beneficios__cards {
+    display: flex;
+    gap: 10px;
+}
+
+.beneficios__cards.right {
+    display: flex;
+    justify-content: end;
+}
+
+.beneficios__card {
+    background-color: red;
+    width: 10%;
+}
+
+.card__title {
+    margin: 10px 0;
+}
+
+.card__text {
+    margin: 0;
+}
+
+/* Media queries para diferentes dispositivos */
+
+/* Celular */
+@media only screen and (max-width: 600px) {
+    .intro {
+        flex-direction: column;
+    }
+
+    .intro__image {
+        display: none;
+    }
+
+    .intro__content {}
+
+    .diferencial {
+        padding: 3rem;
+    }
+
+    .diferencial__content {
+        width: 100%;
+    }
+
+    .diferencial__box {
+        padding: 5rem;
+    }
+
+    .beneficios {
+        padding: 2rem;
+    }
+
+    .beneficios__cards {
+        flex-direction: column;
+    }
+
+    .beneficios__card {
+        width: 10%;
+        background-color: red;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+
+    /* Landing */
+
+    .intro__image {
+        width: 100%;
+    }
+
+    .intro__content {}
+
+    .diferencial {
+        padding: 4rem;
+    }
+
+    .diferencial__content {
+        width: 70%;
+    }
+
+    .diferencial__box {
+        padding: 10rem;
+    }
+
+    .beneficios {
+        padding: 3rem;
+    }
+
+    .beneficios__card {
+        width: 10%;
+        background-color: red;
+    }
+}
+
+/* TV */
+@media only screen and (min-width: 1025px) {
+    .intro__image {
+        width: 40%;
+    }
+
+    .intro__content {}
+
+    .diferencial {
+        padding: 6rem;
+    }
+
+    .diferencial__content {
+        width: 50%;
+    }
+
+    .diferencial__box {
+        padding: 15rem;
+    }
+
+    .beneficios {
+        padding: 4rem;
+    }
+
+    .beneficios__card {
+        width: 10%;
+        background-color: red;
+    }
+}
