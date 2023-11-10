@@ -58,6 +58,8 @@ class User {
      public async login(req: app.Request, res: app.Response) {
           let user: LoginData = req.body;
 
+          console.log("Recebi: ", user.email, user.password);
+
           await app.sql.connect(async (sql) => {
                const selectQuery = `
                     select                                        
@@ -69,8 +71,13 @@ class User {
                `;
 
                const result = await sql.query(selectQuery, [user.email, user.password]);
-               console.log("Usuário logado");
-               res.json(result);
+
+               if (result.length === 0) {
+                    console.log("Usuário não encontrado");
+               } else {
+                    console.log("Usuário encontrado");
+                    res.status(200).json(result);
+               }
           });
      }
 

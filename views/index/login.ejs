@@ -3,44 +3,68 @@
 	<div id="login">
 		<div class="containerLgn">
 			<div class="limitador">
-
 				<div class="coluna1L">
 					<h1 class="titulo2L">BeDev</h1>
 					<h3 class="login_texto">Faça login</h3>
-					<p class="texto2">Caso não possua conta, <a href="cadastro" class="clique">clique aqui</a>
-						para
-						se registrar</p>
+					<p class="texto2">
+						Caso não possua conta, <a href="cadastro" class="clique">clique aqui</a> para se registrar
+					</p>
 
-					<div class="caixoteCad2">
-						<label class="labelCampo" for="email">Email</label>
-						<input id="emailUser" type="text" name="email" autofocus required>
-					</div>
-
-					<div class="caixoteCad2">
-						<label class="labelCampo" for="senha">Senha</label>
-						<div class="senhaEspaco">
-							<input id="senhaUser" type="password" name="senha" autofocus required>
-							<i class="fa-solid fa-eye" id="eye"></i>
+					<form id="loginForm" action="/user/login" method="post">
+						<!-- Formulário para enviar os dados para a rota /user/login via método POST -->
+						<div class="caixoteCad2">
+							<label class="labelCampo" for="email">Email</label>
+							<input id="emailUser" type="text" name="email" autofocus required>
 						</div>
-					</div>
 
-					<div class="esqSenha">
-						<p><span class="clicavel">Esqueceu sua senha?</span></p>
-					</div>
+						<div class="caixoteCad2">
+							<label class="labelCampo" for="senha">Senha</label>
+							<div class="senhaEspaco">
+								<input id="senhaUser" type="password" name="senha" autofocus required>
+								<i class="fa-solid fa-eye" id="eye"></i>
+							</div>
+						</div>
 
-					<div class="botoesCad">
-						<button class="botaoCad">Entrar</button>
+						<div class="esqSenha">
+							<p><span class="clicavel">Esqueceu sua senha?</span></p>
+						</div>
 
-						<a href="" class="voltarCad">Voltar</a>
-					</div>
-
+						<div class="botoesCad">
+							<button type="submit" class="botaoCad">Entrar</button>
+							<a href="" class="voltarCad">Voltar</a>
+						</div>
+					</form>
 				</div>
-
 			</div>
 		</div>
 
-		<div class="preto">
-		</div>
-
-
+		<div class="preto"></div>
 	</div>
+
+	<script>
+		document.getElementById('loginForm').addEventListener('submit', function (e) {
+			e.preventDefault();
+			const email = document.getElementById('emailUser').value;
+			const password = document.getElementById('senhaUser').value;
+			console.log("Fui enviado", email, password);
+
+			fetch('http://localhost:3000/user/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email, password })
+			})
+				.then(response => {
+					console.log(response);
+					if (response.status === 200) {
+						window.location.href = '/feed';
+					} else {
+						alert('Email ou senha incorretos');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		});
+	</script>

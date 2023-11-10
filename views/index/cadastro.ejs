@@ -13,54 +13,53 @@
 							Github
 						</button>
 					</a>
-
 					<p class="texto1">Caso já possua conta, <a href="login" class="clique">clique aqui</a> para
 						logar</p>
 				</div>
 			</div>
-
 			<div class="limitador">
-				<div class="campos">
+				<form class="containerCad">
+					<div class="campos">
+						<div class="caixoteCad1">
+							<div class="caixa">
+								<label class="labelCampo" for="nome">Nome</label>
+								<input id="nomeUser" type="text" name="nome" autofocus required>
+							</div>
 
-					<div class="caixoteCad1">
-						<div class="caixa">
-							<label class="labelCampo" for="nome">Nome</label>
-							<input id="nomeUser" type="text" name="nome" autofocus required>
+							<div class="caixa">
+								<label class="labelCampo" for="sobrenome">Sobrenome</label>
+								<input id="sobrenomeUser" type="text" name="sobrenome" autofocus required>
+							</div>
 						</div>
 
-						<div class="caixa">
-							<label class="labelCampo" for="sobrenome">Sobrenome</label>
-							<input id="sobrenomeUser" type="text" name="sobrenome" autofocus required>
+						<div class="caixoteCad2">
+							<label class="labelCampo" for="email">Email</label>
+							<input id="emailUser" type="text" name="email" autofocus required>
+						</div>
+
+						<div class="caixoteCad2">
+							<label class="labelCampo" for="senha">Senha</label>
+							<div class="senhaEspaco">
+								<input id="senhaUser" type="password" name="senha" autofocus required>
+								<i class="fa-solid fa-eye" id="eye"></i>
+							</div>
+						</div>
+
+						<div class="quadro">
+							<p class="requisitos">X Possui 8 caracteres</p>
+							<p class="requisitos">X Possui pelo menos 1 número</p>
+							<p class="requisitos">X Possui pelo menos uma letra maiúscula</p>
+						</div>
+
+						<div class="botoesCad">
+							<a href="" class="linkEntrarCad">
+								<button class="botaoCad">Entrar</button>
+							</a>
+
+							<a href="/login" class="voltarCad">Voltar</a>
 						</div>
 					</div>
-
-					<div class="caixoteCad2">
-						<label class="labelCampo" for="email">Email</label>
-						<input id="emailUser" type="text" name="email" autofocus required>
-					</div>
-
-					<div class="caixoteCad2">
-						<label class="labelCampo" for="senha">Senha</label>
-						<div class="senhaEspaco">
-							<input id="senhaUser" type="password" name="senha" autofocus required>
-							<i class="fa-solid fa-eye" id="eye"></i>
-						</div>
-					</div>
-
-					<div class="quadro">
-						<p class="requisitos">X Possui 8 caracteres</p>
-						<p class="requisitos">X Possui pelo menos 1 número</p>
-						<p class="requisitos">X Possui pelo menos uma letra maiúscula</p>
-					</div>
-
-					<div class="botoesCad">
-						<a href="" class="linkEntrarCad">
-							<button class="botaoCad">Entrar</button>
-						</a>
-
-						<a href="" class="voltarCad">Voltar</a>
-					</div>
-				</div>
+				</form>
 
 			</div>
 
@@ -68,3 +67,42 @@
 
 		<footer class="preto2"></footer>
 	</div>
+
+	<script>
+		const form = document.querySelector('.containerCad form');
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+
+			const nome = document.getElementById('nomeUser').value;
+			const sobrenome = document.getElementById('sobrenomeUser').value;
+			const email = document.getElementById('emailUser').value;
+			const senha = document.getElementById('senhaUser').value;
+
+			const data = {
+				nome: nome,
+				sobrenome: sobrenome,
+				email: email,
+				senha: senha
+			};
+
+			fetch('http://localhost:3000/user/create', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					if (response.ok) {
+						alert('Usuário criado com sucesso!');
+					} else {
+						alert('Houve um erro ao criar o usuário.');
+					}
+				})
+				.catch(error => {
+					alert('Houve um erro ao criar o usuário:', error);
+				});
+		});
+
+	</script>
