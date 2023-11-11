@@ -8,318 +8,150 @@
 
 html,
 body {
-	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
-	min-height: 100vh;
+    /* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
+    min-height: 100vh;
 }
 
 /* Barra */
-
-.barraNav {
-    background-color: black;
-    height: 64px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    align-items: center;
-    align-self: center;
-    align-content: center;
-}
-
-.barraBedev {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-
-    text-align: center;
-}
-
-.barraBedev:hover {
-    color: white;
-    text-decoration: none;
-}
-
-.menu,
-.menuInv {
-    width: 20px;
-    height: 12px;
-
-    margin: 0 0;
-    padding: 0 0;
-
-    margin: 1.5rem;
-}
-
-.menu {
-    cursor: pointer;
-}
-
-.menuInv {
-    visibility: hidden;
-}
-
 /* Cadastro */
-
-#cadastro,
-#login,
-#sobrenos,
-.containerCad,
-.containerLgn,
-.containerSobreNos,
-.containerEquipe,
-.coluna1,
-.limitador {
+#login {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+    justify-content: space-between;
     align-items: center;
-    align-self: center;
-    align-content: center;
+    height: 100vh;
 }
 
-.containerLgn {
+.preto {
+    height: 100vh;
+    width: 50%;
+    background-color: black;
+}
+
+.container_login {
+    display: flex;
     width: 50%;
 }
 
-#login {
-    flex-direction: row;
-}
-
-.titulo2,
-.titulo2L {
-    margin: 10px 0px 10px 0px;
-    font-size: xx-large;
-    font-weight: 700;
-    text-align: center;
-}
-
-.registro,
-.login_texto {
-    text-align: center;
-    font-size: large;
-    margin: 0;
-}
-
-.pequeno {
-    text-align: center;
-    font-size: 10px;
-    color: rgb(142, 134, 134);
-    font-weight: 300;
-
-    margin: 0;
-    margin: .3rem 0rem;
-}
-
-.linkLogin,
-.linkEntrarCad {
+.container_login__form {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    text-decoration: none;
-
-    align-items: center;
-    align-content: center;
-    align-self: center;
-
-    margin: 0 0;
-    padding: 0 0;
-    max-width: max-content;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.linkLogin:hover {
-    text-decoration: none;
-}
 
-.linkLogin:hover>button>.github {
-    scale: 1.05;
-}
-
-.linkLogin:hover>button {
-    font-weight: 600;
-}
-
-.texto1,
-.texto2 {
-    font-size: small;
-    color: rgb(82, 82, 82);
-
-    text-align: center;
-    margin: 28px 16px 24px 16px;
-}
-
-.clique {
-    color: black;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-.clique:hover {
-    color: black;
-}
-
-.github {
-    margin: 0;
-    margin-right: 0.5rem;
-    padding: auto;
-}
-
-.botao2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    align-self: center;
-
-    width: 210px;
-    height: 30px;
-    color: white;
-    background-color: black;
-    border: 0px;
-
-    border-radius: 5px;
-    padding: 2px 5px 2px 5px;
-
-    font-size: small;
-
-}
-
-.campos {
+/* area de detalhes */
+.conteiner_login__details {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     align-items: center;
-    align-self: center;
-    align-content: center;
-
-    margin: 1.5rem;
-    margin-top: 0rem;
+    text-align: center;
+    gap: .5rem;
 }
 
-.caixoteCad1,
-.caixoteCad2 {
+.conteiner_details__title {
+    font-size: 20px;
+}
+
+.conteiner_details__heading {
+    font-size: 25px;
+}
+
+.conteiner_details__info {
+    font-size: 15px;
+}
+
+/* */
+
+.container_login__formBody {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 1rem;
+}
 
+/* -=-=-=-=-=-=-=-=-=-=- */
+/* área dos inputs */
+.container_formBody__inputs {
+    width: 100%;
+    display: flex;
     align-items: center;
-    align-self: center;
-
-    width: 375px;
+    flex-direction: column;
+    text-align: end;
+    gap: .2rem;
 }
 
-.caixoteCad1 {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 375px;
-    gap: 4px;
-}
-
-.caixa {
+.container_formBody__box {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
-    margin: 0 0;
-    padding: 0 0;
+    text-align: start;
+    align-items: flex-start;
+    padding: .5rem 0;
+    gap: 5px;
 }
 
-.labelCampo {
-    font-size: small;
-    text-align: left;
-
-    align-items: start;
-    align-self: self-start;
-    align-content: start;
-
-    margin: .2rem 0;
-}
-
-.senhaEspaco {
-    width: 375px;
+.senha-espaco {
+    width: 100%;
     position: relative;
 }
 
-.fa-eye {
+
+#eye {
     position: absolute;
-    top: 28%;
-    right: 4%;
+    top: 62%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url('path/to/eye-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     cursor: pointer;
-    color: lightgray;
 }
 
-#nomeUser,
-#sobrenomeUser,
-#emailUser,
-#senhaUser {
+.container_formBody__box input {
+    width: 100%;
     border-radius: 5px;
     border: solid 1.5px rgba(176, 175, 175, 1);
     background-color: rgb(244, 244, 244);
-    padding: 4px 4px;
-
-    margin-bottom: .5rem;
+    padding: .5rem;
+    transition: all 0.5s ease-in;
+    box-sizing: border-box;
 }
 
-#nomeUser {
-    width: 143px;
-    height: 25px;
+.container_formBody__box input:focus {
+    border: solid 1.5px rgba(0, 0, 0, 1);
+    background-color: white;
+    transition: all 0.7s ease-out;
 }
 
-#sobrenomeUser {
-    width: 218px;
-    height: 25px;
-}
-
-#emailUser,
-#senhaUser {
+.container_formBody__box label {
     width: 100%;
-    height: 25px;
+    font-size: 1rem;
+    color: rgb(0, 0, 0);
+    text-align: start;
 }
 
-.quadro {
+#lost {
+    width: 100%;
+    font-size: small;
+    cursor: pointer;
+    color: rgb(80, 80, 80);
+}
+
+/* -=-=-=-=-=-=-=-=-=-=- */
+/* área dos botões */
+.container_formBody__buttons {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
-    width: 375px;
 }
 
-.requisitos {
-    font-size: 10px;
-    color: rgb(142, 134, 134);
-    text-align: left;
-
-    margin: 0 0;
-    margin-bottom: .1rem;
-}
-
-.linkEntrarCad:hover {
-    text-decoration: none;
-}
-
-.botoesCad {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+.container_formBody__buttons button {
     align-items: center;
     align-self: center;
-    align-content: center;
-
-    margin: 0rem 0rem;
-
-    max-width: 100%;
-}
-
-.botaoCad {
-    align-items: center;
-    align-self: center;
-
-    width: 375px;
-
+    width: 100%;
     font-size: small;
     font-weight: 500;
     color: white;
@@ -327,133 +159,170 @@ body {
     border: 0px;
     border-radius: 5px;
     text-decoration: none;
-
-    margin: 10px 0px 10px 0px;
-    padding: 0.35rem 0.5rem;
+    padding: .5rem;
+    cursor: pointer;
+    transition: all 0.5s ease-in;
 }
 
-.botaoCad:hover {
-    scale: 1.05;
+.container_formBody__buttons button:hover {
+    background-color: rgb(21, 21, 21);
+    transition: all 0.5s ease-out;
 }
 
-.voltarCad {
-    font-size: 10px;
+.container_formBody__buttons button:active {
+    background-color: rgb(0, 0, 0);
+    transition: all 0.5s ease-out;
+    scale: 0.9;
+}
+
+.container_formBody__buttons a {
     text-decoration: none;
-    color: rgb(142, 134, 134);
+    color: rgb(80, 80, 80);
+    margin-top: .3rem;
+}
 
-    text-align: center;
-    margin: 0px 0px;
+/* -=-=-=-=-=-=-=-=-=-=- */
 
-    align-self: center;
-    align-items: center;
 
+#cadastro {
     display: flex;
-}
-
-.voltarCad:hover {
-    color: rgb(142, 134, 134);
-    text-decoration: underline;
-}
-
-.preto2 {
-    background-color: black;
-    margin: 0 0;
-    padding: 0 0;
-
+    justify-content: space-between;
     align-items: center;
-    align-self: center;
+    height: 100vh;
 }
 
-/* Login */
-
-.login_texto {
-    padding: 0 0;
-}
-
-.texto2 {
-    margin: 0px 0px;
-    margin: .5rem .5rem 2rem .5rem;
-
-    padding: 0px 0px;
-}
-
-.esqSenha {
+.container_cadastro {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    font-size: 12px;
-    color: rgb(142, 134, 134);
-
-    margin: 0 0;
-    margin-top: -5px;
-
-    width: 375px;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
 }
 
-.esqSenha>p {
-    margin: 0 0;
-    text-align: right;
-
-    padding: 0 0;
-    padding-bottom: 1rem;
+.conteiner_cadastro__form {
+    width: 50%;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.clicavel {
-    cursor: pointer;
+.conteiner_form__details {
+    display: flex;
+    flex-direction: column;
 }
 
-.preto {
-    background-color: black;
-    margin: 0 0;
-    padding: 0 0;
+.form_group__list {
+    display: flex;
+    gap: 10px;
 
+}
+
+.form_group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+}
+
+.form_group label {
+    width: 100%;
+}
+
+.form_group input {
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1.5px rgba(176, 175, 175, 1);
+    background-color: rgb(244, 244, 244);
+    padding: .5rem;
+    transition: all 0.5s ease-in;
+    box-sizing: border-box;
+}
+
+.form_cad__buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.form_cad__buttons button {
     align-items: center;
     align-self: center;
-
-    height: 89.4vh;
-    width: 50vw;
+    width: 100%;
+    font-size: small;
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    border: 0px;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: .5rem;
+    cursor: pointer;
+    transition: all 0.5s ease-in;
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-    /* Cadastro */
+.form_cad__buttons button:hover {
+    background-color: rgb(21, 21, 21);
+    transition: all 0.5s ease-out;
+}
 
-    .caixoteCad1 {
-        flex-direction: column;
-        justify-content: center;
-    }
+.form_cad__buttons button:active {
+    background-color: rgb(0, 0, 0);
+    transition: all 0.5s ease-out;
+    scale: 0.9;
+}
 
-    .caixa {
-        width: 100%;
-    }
+.form_cad__buttons a {
+    text-decoration: none;
+    color: rgb(80, 80, 80);
+    margin-top: .3rem;
+}
 
-    #nomeUser,
-    #sobrenomeUser {
-        width: 100%;
-    }
 
-    .preto2,
+.form_group__checkbox {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.form_checkbox__box {
+    padding: 1rem;
+}
+
+@media screen and (max-width: 768px) {
     .preto {
         display: none;
     }
 
-    /* Login */
+    .conteiner_form__details {
+        text-align: center;
+    }
 
-    #login,
     #cadastro {
-        width: 100%;
-        height: 100vh;
+        padding: 10rem 0;
     }
 
-    .containerLgn {
-        width: 100%;
+    .form_group__list {
+        flex-direction: column;
     }
 
-    .login_texto {
-        padding: 1rem;
+}
+
+@media screen and (max-width: 992px) {
+    .preto {
+        display: none;
     }
 
-    #login {
+    .conteiner_form__details {
+        text-align: center;
+    }
+
+    #cadastro {
+        padding: 10rem 0;
+    }
+
+    .form_group__list {
         flex-direction: column;
     }
 }

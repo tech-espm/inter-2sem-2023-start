@@ -31,19 +31,12 @@
 
 .intro {
     display: flex;
-
 }
 
 .intro__image {
     width: 60%;
     display: flex;
     justify-content: end;
-}
-
-.intro__image img {
-    /* Conteiner com a imagem */
-    width: 80%;
-
 }
 
 .intro__content {

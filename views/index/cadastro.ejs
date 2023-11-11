@@ -1,108 +1,105 @@
-<%- include("../comum/barra.ejs") %>
-	<div id="cadastro">
-		<div class="containerCad">
-			<div class="limitador">
-				<div class="coluna1">
-					<h1 class="titulo2">BeDev</h1>
-					<p class="registro">Faça seu registro</p>
-					<p class="pequeno">ou</p>
-
-					<a href="https://github.com/login" class="linkLogin">
-						<button class="botao2"><img class="github" src="/public/img/imagens/github-mark-white.svg"
-								width="15px">Conecte-se com o
-							Github
-						</button>
-					</a>
-					<p class="texto1">Caso já possua conta, <a href="login" class="clique">clique aqui</a> para
-						logar</p>
-				</div>
+<div id="cadastro">
+	<div class="container_cadastro">
+		<div class="conteiner_cadastro__form">
+			<div class="conteiner_form__details">
+				<h1 class="conteiner_details__title">BeDev</h1>
+				<h3 class="conteiner_details__heading">Faça seu cadastro</h3>
+				<p class="conteiner_details__info">
+					Caso possua conta, <a href="login">clique aqui</a> para se logar
+				</p>
 			</div>
-			<div class="limitador">
-				<form class="containerCad">
-					<div class="campos">
-						<div class="caixoteCad1">
-							<div class="caixa">
-								<label class="labelCampo" for="nome">Nome</label>
-								<input id="nomeUser" type="text" name="nome" autofocus required>
-							</div>
-
-							<div class="caixa">
-								<label class="labelCampo" for="sobrenome">Sobrenome</label>
-								<input id="sobrenomeUser" type="text" name="sobrenome" autofocus required>
-							</div>
-						</div>
-
-						<div class="caixoteCad2">
-							<label class="labelCampo" for="email">Email</label>
-							<input id="emailUser" type="text" name="email" autofocus required>
-						</div>
-
-						<div class="caixoteCad2">
-							<label class="labelCampo" for="senha">Senha</label>
-							<div class="senhaEspaco">
-								<input id="senhaUser" type="password" name="senha" autofocus required>
-								<i class="fa-solid fa-eye" id="eye"></i>
-							</div>
-						</div>
-
-						<div class="quadro">
-							<p class="requisitos">X Possui 8 caracteres</p>
-							<p class="requisitos">X Possui pelo menos 1 número</p>
-							<p class="requisitos">X Possui pelo menos uma letra maiúscula</p>
-						</div>
-
-						<div class="botoesCad">
-							<a href="" class="linkEntrarCad">
-								<button class="botaoCad">Entrar</button>
-							</a>
-
-							<a href="/login" class="voltarCad">Voltar</a>
-						</div>
+			<form class="form_cad">
+				<h5>Informações básicas</h5>
+				<div class="form_group__list">
+					<div class="form_group">
+						<label for="nome" class="form_group__label">Nome</label>
+						<input type="text" class="form_group__input" id="nome" name="nome" required>
 					</div>
-				</form>
-
-			</div>
-
+					<div class="form_group">
+						<label for="apelido" class="form_group__label">Apelido</label>
+						<input type="text" class="form_group__input" id="apelido" name="apelido" required>
+					</div>
+					<div class="form_group">
+						<label for="idade" class="form_group__label">Idade</label>
+						<input type="text" class="form_group__input" id="idade" name="idade" required>
+					</div>
+				</div>
+				<div class="form_group">
+					<label for="email" class="form_group__label">Email</label>
+					<input type="text" class="form_group__input" id="email" name="email" required>
+				</div>
+				<div class="form_group__list">
+					<div class="form_group">
+						<label for="senha" class="form_group__label">Senha</label>
+						<input type="password" class="form_group__input" id="senha" name="senha" required>
+					</div>
+					<div class="form_group">
+						<label for="confirmarSenha" class="form_group__label">Confirmar senha</label>
+						<input type="password" class="form_group__input" id="confirmarSenha" name="confirmarSenha"
+							required>
+					</div>
+				</div>
+				<div class="form_group__checkbox">
+					<div class="form_checkbox__box">
+						<input type="checkbox" class="form_group__input" id="anonimo" name="anonimo" required>
+						<label for="anonimo" class="form_group__label">Gostaria de ficar anônimo</label>
+					</div>
+					<div class="form_checkbox__box">
+						<input type="checkbox" class="form_group__input" id="termosDeUso" name="termosDeUso">
+						<label for="termosDeUso" class="form_group__label">Aceito os termos de uso</label>
+					</div>
+				</div>
+				<div class="form_cad__buttons">
+					<button>Cadastrar</button>
+					<a href="/login" class="voltarCad">Voltar</a>
+				</div>
 		</div>
-
-		<footer class="preto2"></footer>
+		</form>
 	</div>
 
-	<script>
-		const form = document.querySelector('.containerCad form');
 
-		form.addEventListener('submit', (e) => {
-			e.preventDefault();
+</div>
 
-			const nome = document.getElementById('nomeUser').value;
-			const sobrenome = document.getElementById('sobrenomeUser').value;
-			const email = document.getElementById('emailUser').value;
-			const senha = document.getElementById('senhaUser').value;
+</div>
 
-			const data = {
-				nome: nome,
-				sobrenome: sobrenome,
-				email: email,
-				senha: senha
-			};
+<footer class="preto2"></footer>
+</div>
 
-			fetch('http://localhost:3000/user/create', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
+<script>
+	const form = document.querySelector('.containerCad form');
+
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+
+		const nome = document.getElementById('nomeUser').value;
+		const sobrenome = document.getElementById('sobrenomeUser').value;
+		const email = document.getElementById('emailUser').value;
+		const senha = document.getElementById('senhaUser').value;
+
+		const data = {
+			nome: nome,
+			sobrenome: sobrenome,
+			email: email,
+			senha: senha
+		};
+
+		fetch('http://localhost:3000/user/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (response.ok) {
+					alert('Usuário criado com sucesso!');
+				} else {
+					alert('Houve um erro ao criar o usuário.');
+				}
 			})
-				.then(response => {
-					if (response.ok) {
-						alert('Usuário criado com sucesso!');
-					} else {
-						alert('Houve um erro ao criar o usuário.');
-					}
-				})
-				.catch(error => {
-					alert('Houve um erro ao criar o usuário:', error);
-				});
-		});
+			.catch(error => {
+				alert('Houve um erro ao criar o usuário:', error);
+			});
+	});
 
-	</script>
+</script>
