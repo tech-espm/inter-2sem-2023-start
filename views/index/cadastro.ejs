@@ -8,7 +8,7 @@
 					Caso possua conta, <a href="login">clique aqui</a> para se logar
 				</p>
 			</div>
-			<form class="form_cad">
+			<form class="form_cad" id="form_cad">
 				<h5>Informações básicas</h5>
 				<div class="form_group__list">
 					<div class="form_group">
@@ -16,7 +16,7 @@
 						<input type="text" class="form_group__input" id="nome" name="nome" required>
 					</div>
 					<div class="form_group">
-						<label for="apelido" class="form_group__label">Apelido</label>
+						<label for="apelido" class="form_group__label">Usuário</label>
 						<input type="text" class="form_group__input" id="apelido" name="apelido" required>
 					</div>
 					<div class="form_group">
@@ -41,7 +41,7 @@
 				</div>
 				<div class="form_group__checkbox">
 					<div class="form_checkbox__box">
-						<input type="checkbox" class="form_group__input" id="anonimo" name="anonimo" required>
+						<input type="checkbox" class="form_group__input" id="anonimo" name="anonimo">
 						<label for="anonimo" class="form_group__label">Gostaria de ficar anônimo</label>
 					</div>
 					<div class="form_checkbox__box">
@@ -64,24 +64,61 @@
 
 <footer class="preto2"></footer>
 </div>
-
 <script>
-	const form = document.querySelector('.containerCad form');
+	const form = document.getElementById('form_cad')
 
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
+		const nome = document.getElementById('nome').value;
+		const user = document.getElementById('apelido').value;
+		const idade = document.getElementById('idade').value;
+		const email = document.getElementById('email').value;
+		const senha = document.getElementById('senha').value;
 
-		const nome = document.getElementById('nomeUser').value;
-		const sobrenome = document.getElementById('sobrenomeUser').value;
-		const email = document.getElementById('emailUser').value;
-		const senha = document.getElementById('senhaUser').value;
+		const isAnonimo = document.getElementById('anonimo').checked;
+		const isTermosDeUso = document.getElementById('termosDeUso').checked;
 
 		const data = {
-			nome: nome,
-			sobrenome: sobrenome,
+			name: nome,
+			user: user,
+			isAnonimo: isAnonimo,
+			idade: idade,
 			email: email,
-			senha: senha
+			password: senha,
+			isVerified: 0,
 		};
+
+		if (!isTermosDeUso) {
+			alert('Você precisa aceitar os termos de uso para se cadastrar.');
+			return;
+		}
+
+		if (isAnonimo) {
+			fetch('http://localhost:3000/user/gerarAnonimo', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						throw new Error('Houve um erro ao gerar o apelido.');
+					}
+				})
+				.then(resp => {
+					console.log('Apelido gerado com sucesso! ', resp);
+					document.getElementById('apelido').value = resp;
+					data.user = resp;
+					console.log(data);
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		} else {
+			console.log(data);
+		}
 
 		fetch('http://localhost:3000/user/create', {
 			method: 'POST',
@@ -93,6 +130,7 @@
 			.then(response => {
 				if (response.ok) {
 					alert('Usuário criado com sucesso!');
+					window.location.href = '/login';
 				} else {
 					alert('Houve um erro ao criar o usuário.');
 				}

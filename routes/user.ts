@@ -2,9 +2,9 @@ import app = require("teem");
 import Usuario from "../utils/validarUsuario";
 
 type UserData = {
-     id: number;
+     id?: number;
      name: string;
-     nm_anonimo?: string;
+     user: string;
      isAnonimo: number;
      idade: number;
      photoURL?: string;
@@ -18,42 +18,75 @@ type LoginData = {
      password: string;
 }
 
+/**
+ * Representa uma classe de Usuário com rotas para criar, pesquisar e fazer login de usuários.
+ */
 class User {
+     /**
+      * Rota para obter todos os usuários.
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      */
      public async index(req: app.Request, res: app.Response) {
           res.send("Testando");
      }
 
+     /**
+      * Rota para criar um novo usuário.
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      */
      @app.http.post()
      public async create(req: app.Request, res: app.Response) {
           let user: UserData = req.body;
 
-          let userValidation = new Usuario(user);
-          userValidation.validar();
+          console.log(user)
 
           await app.sql.connect(async (sql) => {
-               const insertQuery = `
-                    insert into
-                         usuario (
-                              Id_user,
-                              Nm_user,
-                              Nm_Anom,
-                              isAnom,
-                              Idade,
-                              Foto,
-                              Email,
-                              Senha,
-                              isVerified
-                         )
-                         values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+               const selectQuery = `
+                    select                                        
+                         *
+                    from
+                         usuario
+                    where
+                         Nm_user = ? or Email = ?
                `;
 
-               await sql.query(insertQuery, [user.id, user.name, user.nm_anonimo, user.isAnonimo, user.idade, user.photoURL, user.email, user.password, user.isVerified]);
-               console.log("Usuário criado com sucesso!");
-          });
+               const result = await sql.query(selectQuery, [user.name, user.email]);
 
-          res.json("Testando");
+               if (result.length > 0) {
+                    res.status(409).json({ message: "Usuário já existe" });
+               } else {
+                    const insertQuery = `
+                         insert into
+                              usuario (
+                                   Nm_user,
+                                   User,
+                                   isAnom,
+                                   Idade,
+                                   Foto,
+                                   Email,
+                                   Senha,
+                                   isVerified
+                              )
+                              values (?, ?, ?, ?, ?, ?, ?, ?)
+                    `;
+
+                    const result = await sql.query(insertQuery, [user.name, user.user, user.isAnonimo, user.idade, user.photoURL, user.email, user.password, user.isVerified]);
+                    if (result.length === 0) {
+                         console.log("Usuário não criado");
+                    }
+                    console.log("Usuário criado com sucesso!");
+                    res.json("Testando");
+               }
+          });
      }
 
+     /**
+      * Rota para fazer login de um usuário.
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      */
      @app.http.post()
      public async login(req: app.Request, res: app.Response) {
           let user: LoginData = req.body;
@@ -81,7 +114,11 @@ class User {
           });
      }
 
-
+     /**
+      * Rota para pesquisar um usuário por ID.
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      */
      @app.http.get()
      public async search(req: app.Request, res: app.Response) {
           let search = req.query.id
@@ -100,6 +137,43 @@ class User {
                console.log("Usuário lido com sucesso!");
                res.json(result);
           });
+     }
+
+     /**
+      * Rota para gerar um usuário anônimo.
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      */
+     @app.http.get()
+     public async gerarAnonimo(req: app.Request, res: app.Response) {
+          const lista_nomes = []
+          await app.sql.connect(async (sql) => {
+               const selectQuery = `
+                    select                                        
+                         Nm_Anom as nome
+                    from
+                         nm_anonimo
+               `;
+
+               const result = await sql.query(selectQuery);
+               lista_nomes.push(...(result as { nome: string }[]).map(obj => obj.nome));
+          });
+
+          function sorteadorDeNome() {
+               const nome = lista_nomes[Math.floor(Math.random() * lista_nomes.length)];
+               let nomeFormatado = nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "_").toLowerCase();
+               if (nomeFormatado.length > 25) {
+                    nomeFormatado = nomeFormatado.substring(0, 25);
+               }
+               const numeroRandom = Math.floor(Math.random() * 10000);
+               return nomeFormatado + numeroRandom;
+          }
+          const nome = sorteadorDeNome()
+          console.log(sorteadorDeNome())
+          console.log(lista_nomes)
+          console.log(nome)
+
+          res.json(nome);
      }
 
 }

@@ -12,7 +12,7 @@ class Usuario {
      constructor(user: {
           id: number;
           name: string;
-          nm_anonimo?: string;
+          nm_anonimo: string;
           isAnonimo: number;
           idade: number;
           photoURL?: string;
@@ -32,10 +32,6 @@ class Usuario {
      }
 
      validar() {
-          if (!this.id || typeof this.id !== "number") {
-               throw new Error("O campo 'id' é obrigatório e deve ser um número.");
-          }
-
           if (!this.name || typeof this.name !== "string") {
                throw new Error("O campo 'name' é obrigatório e deve ser uma string.");
           }
@@ -50,10 +46,6 @@ class Usuario {
 
           if (!this.idade || typeof this.idade !== "number") {
                throw new Error("O campo 'idade' é obrigatório e deve ser um número.");
-          }
-
-          if (this.photoURL && typeof this.photoURL !== "string") {
-               throw new Error("O campo 'photoURL' deve ser uma string.");
           }
 
           if (!this.email || typeof this.email !== "string") {
