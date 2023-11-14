@@ -87,6 +87,7 @@ class User {
       * @param req - O objeto de solicitação.
       * @param res - O objeto de resposta.
       */
+
      @app.http.post()
      public async login(req: app.Request, res: app.Response) {
           let user: LoginData = req.body;

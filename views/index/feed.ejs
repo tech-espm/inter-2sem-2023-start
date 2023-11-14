@@ -1,3 +1,56 @@
-<div>
+<%- include("../comum/barra.ejs") %>
+     <div class="feed_page">
+          <div class="feed">
+               <div class="feed_box">
+                    <div class="feed_box-header">
+                         <img src="../../public/img/imagens/default-icon.jpg" alt="foto" class="icon" />
+                         <h1 class="feed_box-title">{Nome}</h1>
+                    </div>
+                    <div class="feed_box-body">
+                         <div class="feed_box-textarea">
+                              <textarea name="post" id="post" cols="30" rows="10" value=""
+                                   placeholder="No que você está pensando?"></textarea>
+                         </div>
+                         <div class="feed_box-buttons">
+                              <div class="feed_box-buttons--functions">
+                                   <input type="file" class="feed-button" id="choose-image"></input>
+                                   <button class="feed-button" id="emoji">Emoji</button>
+                              </div>
+                              <div class="feed_box-buttons--criar">
+                                   <button class="feed-button" id="create-post">Criar post</button>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <div class="feed_body">
 
-</div>
+               </div>
+          </div>
+     </div>
+     <script>
+          const createPostButton = document.getElementById('create-post')
+
+          createPostButton.addEventListener('click', (e) => {
+               e.preventDefault()
+               const postContent = {
+                    id: 1,
+                    content: {
+                         text: document.getElementById('post').value,
+                         image: document.getElementById('choose-image').files[0],
+                    },
+                    date: new Date(),
+                    userId: 1,
+                    userName: 1,
+                    userPhoto: 1,
+               }
+
+               fetch('http://localhost:3000/post/create', {
+                    method: 'POST',
+                    headers: {
+                         'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postContent)
+               })
+          })
+
+     </script>

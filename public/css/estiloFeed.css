@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+     margin: 0 auto;
+     padding: 0 auto;
+     font-family: 'Inter', sans-serif;
+}
+
+.feed_page {
+     height: 100vh;
+     padding: 1rem 0;
+}
+
+.feed_box {
+     display: flex;
+     width: 50%;
+     padding: 1rem;
+     margin: 0 auto;
+     border: 2px solid whitesmoke;
+     border-radius: 2px;
+}
+
+.feed_box-header {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     width: 20%;
+}
+
+.feed_box-body {
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+}
+
+.feed_box-textarea {
+     width: 100%;
+}
+
+.feed_box-textarea textarea {
+     width: 100%;
+     padding: 1rem;
+     resize: none;
+     border: none;
+     font-size: 1rem;
+     font-weight: 500;
+     font-family: 'Inter', sans-serif;
+     border-radius: 8px;
+     box-sizing: border-box;
+}
+
+.feed_box-buttons {
+     display: flex;
+     justify-content: end;
+     width: 100%;
+     padding: 1rem 0;
+}
+
+.feed_box-buttons--functions {
+     width: 80%;
+}
+
+.feed_box-buttons--criar {
+     width: 20%;
+}
+
+.feed_box-buttons--criar button {
+     width: 100%;
+}
+
+.icon {
+     width: 80px;
+     height: 80px;
+     border-radius: 100%;
+     object-fit: cover;
+     object-position: center;
+}
+
+.feed_box-title {
+     font-size: 22px;
+     font-weight: 600;
+     padding: 1rem 0;
+}
+
+.feed-button {
+     padding: 10px 20px;
+     border: none;
+     border-radius: 5px;
+     background-color: #000000;
+     color: #fff;
+     font-size: 1rem;
+     cursor: pointer;
+}
+
+.feed-button:hover {
+     background-color: #202020;
+     color: #fff;
+}
