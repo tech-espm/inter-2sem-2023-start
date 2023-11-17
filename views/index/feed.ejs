@@ -4,16 +4,22 @@
                <div class="feed_box">
                     <div class="feed_box-header">
                          <img src="../../public/img/imagens/default-icon.jpg" alt="foto" class="icon" />
-                         <h1 class="feed_box-title">{Nome}</h1>
+                         <h1 class="feed_box-title" id="userName"></h1>
                     </div>
                     <div class="feed_box-body">
                          <div class="feed_box-textarea">
                               <textarea name="post" id="post" cols="30" rows="10" value=""
                                    placeholder="No que você está pensando?"></textarea>
                          </div>
+                         <div class="imagem-preview">
+                              <ul class="imagem-list">
+                                   <li class="imagem-choosed" id="imagem-choosed"></li>
+                              </ul>
+                         </div>
                          <div class="feed_box-buttons">
                               <div class="feed_box-buttons--functions">
-                                   <input type="file" class="feed-button" id="choose-image"></input>
+                                   <label class="feed-button" for="choose-image">📁</label>
+                                   <input type="file" id="choose-image"></input>
                                    <button class="feed-button" id="emoji">Emoji</button>
                               </div>
                               <div class="feed_box-buttons--criar">
@@ -23,34 +29,224 @@
                     </div>
                </div>
                <div class="feed_body">
-
                </div>
           </div>
      </div>
-     <script>
-          const createPostButton = document.getElementById('create-post')
 
-          createPostButton.addEventListener('click', (e) => {
-               e.preventDefault()
-               const postContent = {
-                    id: 1,
-                    content: {
-                         text: document.getElementById('post').value,
-                         image: document.getElementById('choose-image').files[0],
-                    },
-                    date: new Date(),
-                    userId: 1,
-                    userName: 1,
-                    userPhoto: 1,
+     <script>
+          const userInfos = JSON.parse(localStorage.getItem('userInfos'));
+          console.log(userInfos);
+
+          const userName = document.getElementById('userName');
+          userName.innerHTML = userInfos.User;
+
+          const chooseImage = document.getElementById('choose-image');
+          const imagemChoosed = document.getElementById('imagem-choosed');
+
+          chooseImage.addEventListener('change', (e) => {
+               const file = e.target.files[0];
+               const reader = new FileReader();
+
+               reader.onload = () => {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    imagemChoosed.innerHTML = '';
+                    imagemChoosed.appendChild(img);
+               };
+
+               reader.readAsDataURL(file);
+          });
+
+          const createPostButton = document.getElementById('create-post');
+
+          createPostButton.addEventListener('click', async (e) => {
+               const post = document.getElementById('post').value;
+               const image = document.getElementById('choose-image').files[0];
+
+               async function convertToBase64(image) {
+                    return new Promise((resolve, reject) => {
+                         const reader = new FileReader();
+                         reader.onload = () => {
+                              resolve(reader.result);
+                         };
+                         reader.onerror = reject;
+                         reader.readAsDataURL(image);
+                    });
                }
+
+               const compressedBase64Image = await convertToBase64(image)
+                    .then((result) => {
+                         const img = new Image();
+                         img.src = result;
+
+                         const canvas = document.createElement('canvas');
+                         const ctx = canvas.getContext('2d');
+                         canvas.width = img.width;
+                         canvas.height = img.height;
+                         ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                         return canvas.toDataURL('image/webp', 0.8);
+                    })
+                    .catch((err) => {
+                         console.log(err);
+                    });
+
+               const postContent = {
+                    contentText: post,
+                    contentImage: compressedBase64Image,
+                    isImage: image ? 1 : 0,
+                    userId: userInfos.Id_user,
+               };
 
                fetch('http://localhost:3000/post/create', {
                     method: 'POST',
                     headers: {
-                         'Content-Type': 'application/json'
+                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(postContent)
+                    body: JSON.stringify(postContent),
                })
-          })
+                    .then((response) => {
+                         console.log(postContent);
+                         console.log(response);
+                         window.location.reload();
+                    })
+                    .catch((err) => {
+                         console.log(postContent);
+                         console.log(err);
+                    });
 
+          });
+
+     </script>
+
+     <script>
+          const feedBody = document.querySelector('.feed_body');
+          const renderedPosts = new Set();
+
+          window.addEventListener('scroll', () => {
+               const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+               if (scrollTop + clientHeight >= scrollHeight - 5) {
+                    getPosts();
+               }
+          });
+
+          window.addEventListener('load', () => {
+               getPosts();
+          });
+
+
+          async function getPosts() {
+               const response = await fetch(`http://localhost:3000/post/getAllPosts`);
+               const posts = await response.json();
+
+               posts.forEach((post) => {
+                    if (!renderedPosts.has(post.id)) {
+                         renderedPosts.add(post.id);
+
+                         const postElement = document.createElement('div');
+                         postElement.classList.add('post');
+
+                         const postHeader = document.createElement('div');
+                         postHeader.classList.add('post_header');
+
+                         const postHeaderIcon = document.createElement('img');
+                         postHeaderIcon.classList.add('post_header-icon');
+                         postHeaderIcon.src = '../../public/img/imagens/default-icon.jpg';
+
+                         const postHeaderDiv = document.createElement('div');
+                         postHeaderDiv.classList.add('post_header-ultra');
+
+                         const postHeaderTitle = document.createElement('h1');
+                         postHeaderTitle.classList.add('post_header-title');
+                         postHeaderTitle.innerHTML = post.userName;
+
+                         const postHeaderVerify = document.createElement('img');
+                         postHeaderVerify.classList.add('post_header-verify');
+                         postHeaderVerify.src = '../../public/img/imagens/verify.png';
+
+                         const postHeaderDate = document.createElement('h2');
+                         postHeaderDate.classList.add('post_header-data');
+                         postHeaderDate.innerHTML = new Date(post.date).toLocaleDateString('pt-BR');
+
+                         const postBody = document.createElement('div');
+                         postBody.classList.add('post_body');
+
+                         const postText = document.createElement('p');
+                         postText.classList.add('post_text');
+                         postText.innerHTML = post.contentText;
+
+                         const postImage = document.createElement('div');
+                         postImage.classList.add('post_image');
+
+                         if (post.isImage == 1 && post.contentImage != null) {
+                              function Base64ToImage(base64) {
+                                   const img = new Image();
+                                   img.src = base64;
+                                   return img;
+                              }
+
+                              const postImageContent = Base64ToImage(post.contentImage);
+                              postImage.appendChild(postImageContent);
+                         }
+
+                         const postFooter = document.createElement('div');
+                         postFooter.classList.add('post_footer');
+
+                         const likesCount = document.createElement('span');
+                         likesCount.classList.add('post_footer-likesCount');
+                         likesCount.innerHTML = post.likes;
+
+                         const postFooterLike = document.createElement('button');
+                         postFooterLike.classList.add('post_footer-like');
+                         postFooterLike.innerHTML = '❤️';
+
+                         const hasLiked = localStorage.getItem('likedPosts') ? JSON.parse(localStorage.getItem('likedPosts')) : [];
+
+                         if (hasLiked.includes(post.id)) {
+                              postFooterLike.disabled = true;
+                         }
+
+                         postFooterLike.addEventListener('click', () => {
+                              hasLiked.push(post.id);
+                              localStorage.setItem('likedPosts', JSON.stringify(hasLiked));
+
+                              fetch('http://localhost:3000/post/like', {
+                                   method: 'POST',
+                                   headers: {
+                                        'Content-Type': 'application/json',
+                                   },
+                                   body: JSON.stringify({ postId: post.id }),
+                              })
+                                   .then((response) => {
+                                        console.log(response);
+                                        likesCount.innerHTML = parseInt(likesCount.innerHTML) + 1;
+                                        window.location.reload();
+                                   })
+                                   .catch((err) => {
+                                        console.log(err);
+                                   });
+                         });
+
+                         postHeader.appendChild(postHeaderIcon);
+                         postHeader.appendChild(postHeaderTitle);
+                         if (userInfos.isVerified == 1) {
+                              postHeader.appendChild(postHeaderVerify);
+                         }
+                         postHeader.appendChild(postHeaderDate);
+
+                         postBody.appendChild(postText);
+                         postBody.appendChild(postImage);
+
+                         postFooter.appendChild(likesCount);
+                         postFooter.appendChild(postFooterLike);
+
+                         postElement.appendChild(postHeader);
+                         postElement.appendChild(postBody);
+                         postElement.appendChild(postFooter);
+
+                         feedBody.appendChild(postElement);
+                    }
+               });
+          }
      </script>

@@ -2,9 +2,10 @@ import app = require('teem')
 const { storage } = require('../services/firebase');
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
-interface Post {
+interface UserPost {
      id: number;
-     content: string;
+     contentText: string;
+     contentImage?: File;
      date: Date;
      userId: number;
      userName: string;
@@ -23,38 +24,118 @@ class UserPost {
           res.send("Testando");
      }
 
+     @app.http.get()
+     public async getAllPosts(req: app.Request, res: app.Response) {
+          await app.sql.connect(async (sql) => {
+               const posts = await sql.query(`
+                    select
+                         p.Id_post,
+                         p.Conteudo_Texto,
+                         p.Conteudo_Imagem,
+                         p.isImage,
+                         p.Data_post,
+                         p.Id_user,
+                         p.Likes,
+                         u.User as userName,
+                         u.Foto as userPhoto
+                    from
+                         post p
+                         inner join usuario u on u.Id_user = p.Id_user
+                    order by
+                         p.Data_post desc
+               `);
+
+               const postsArray = posts.map((post: any) => {
+                    return {
+                         id: post.Id_post,
+                         contentText: post.Conteudo_Texto,
+                         contentImage: post.Conteudo_Imagem ? post.Conteudo_Imagem.toString() : null,
+                         isImage: post.isImage,
+                         date: post.Data_post,
+                         userId: post.Id_user,
+                         userName: post.userName,
+                         userPhoto: post.userPhoto,
+                         likes: post.Likes
+                    }
+               });
+
+               res.send(postsArray);
+          });
+     }
+
      @app.http.post()
-     public async create(req: app.Request, res: app.Response) {
-          let userPost: Post = {
-               id: Number(req.body.id),
-               content: req.body.content as string,
-               date: new Date(req.body.date as string),
-               userId: Number(req.body.userId),
-               userName: req.body.userName as string,
-               userPhoto: req.body.userPhoto as string,
+     public async like(req: app.Request, res: app.Response) {
+          const like = {
+               postId: req.body.postId,
+               userId: req.body.userId,
           }
 
-          const storageRef = ref(storage, `${userPost.userId}/${userPost.id}`);
-          const upload = uploadBytesResumable(storageRef, req.body.content);
+          await app.sql.connect(async (sql) => {
+               const selectQuery = `
+                    select 
+                         Likes
+                    from 
+                         post
+                    where 
+                         Id_post = ?
+               `;
 
-          upload.on(
-               "state_changed",
-               (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Enviando post para o db: " + progress + "%")
-               },
-               (error) => {
-                    console.error(error);
-               },
-               () => {
-                    getDownloadURL(upload.snapshot.ref).then((downloadURL) => {
-                         console.log("Download do arquivo", downloadURL);
-                    });
-               }
-          )
+               const selectResult = await sql.query(selectQuery, [like.postId]);
+               const currentLikes = (selectResult[0] as any).Likes;
 
-          res.send(userPost);
+               const updateQuery = `
+                    update post
+                    set Likes = ?
+                    where Id_post = ?
+               `;
+
+               const newLikes = currentLikes + 1;
+               const updateResult = await sql.query(updateQuery, [newLikes, like.postId]);
+
+               res.send(updateResult);
+          });
      }
+
+     @app.http.post()
+     public async create(req: app.Request, res: app.Response) {
+          let userPost = {
+               contentText: req.body.contentText,
+               contentImage: req.body.contentImage,
+               isImage: req.body.isImage,
+               userId: req.body.userId,
+          }
+
+          await app.sql.connect(async (sql) => {
+               const insertQuery = `
+                    insert into
+                         post(
+                              Id_user,
+                              Conteudo_Texto,
+                              Conteudo_Imagem,
+                              isImage
+                         )
+                    values(
+                         ?,
+                         ?,
+                         ?,
+                         ?
+                    )
+               `;
+
+               const result = await sql.query(insertQuery, [
+                    userPost.userId,
+                    userPost.contentText,
+                    userPost.contentImage,
+                    userPost.isImage
+               ]);
+
+               res.send(result);
+          });
+     }
+
+
+
+
 
      public async delete(req: app.Request, res: app.Response) {
           let deletePost: DeletePost = {
@@ -65,6 +146,10 @@ class UserPost {
 
           res.send(deletePost);
      }
+
+
+
+
 }
 
 export = UserPost;

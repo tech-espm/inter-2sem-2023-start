@@ -105,12 +105,12 @@ class User {
                `;
 
                const result = await sql.query(selectQuery, [user.email, user.password]);
-
+               console.log(result)
                if (result.length === 0) {
                     console.log("Usuário não encontrado");
                } else {
                     console.log("Usuário encontrado");
-                    res.status(200).json(result);
+                    res.status(200).json(result[0]);
                }
           });
      }
@@ -120,6 +120,7 @@ class User {
       * @param req - O objeto de solicitação.
       * @param res - O objeto de resposta.
       */
+
      @app.http.get()
      public async search(req: app.Request, res: app.Response) {
           let search = req.query.id

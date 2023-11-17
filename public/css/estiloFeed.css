@@ -11,9 +11,15 @@
      padding: 1rem 0;
 }
 
+.feed_body {
+     height: fit-content;
+     padding-bottom: 10rem;
+}
+
 .feed_box {
      display: flex;
      width: 50%;
+     height: fit-content;
      padding: 1rem;
      margin: 0 auto;
      border: 2px solid whitesmoke;
@@ -31,14 +37,17 @@
      display: flex;
      flex-direction: column;
      width: 100%;
+     height: fit-content;
 }
 
 .feed_box-textarea {
      width: 100%;
+     height: 50%;
 }
 
 .feed_box-textarea textarea {
      width: 100%;
+     height: 100%;
      padding: 1rem;
      resize: none;
      border: none;
@@ -77,9 +86,10 @@
 }
 
 .feed_box-title {
-     font-size: 22px;
+     font-size: 12px;
      font-weight: 600;
      padding: 1rem 0;
+     word-break: break-all;
 }
 
 .feed-button {
@@ -95,4 +105,180 @@
 .feed-button:hover {
      background-color: #202020;
      color: #fff;
+}
+
+#choose-image {
+     display: none
+}
+
+.imagem-preview {
+     width: 100%;
+     margin-top: 1rem;
+}
+
+.imagem-list {
+     display: flex;
+     flex-wrap: wrap;
+     list-style: none;
+     padding: 0;
+}
+
+.imagem-choosed {
+     margin: 0;
+     padding: 0;
+     background-color: aqua;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.imagem-choosed img {
+     max-width: 150px;
+     max-height: 150px;
+}
+
+.post {
+     width: 50%;
+     padding: 1rem;
+     border-radius: 8px;
+     height: fit-content;
+     border: 2px solid whitesmoke;
+     margin-top: 1rem;
+}
+
+.post_header {
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-start;
+     gap: 5px;
+     align-items: center;
+}
+
+
+.post_header-title {
+     width: 70%;
+     font-size: 13px;
+     font-weight: 600;
+     word-break: break-all;
+}
+
+.post_header-verify {
+     width: 10px;
+     font-size: 10px;
+     font-weight: 600;
+     padding: 1rem 0;
+     word-break: break-all;
+}
+
+.post_header-icon {
+     width: 30px;
+     height: 30px;
+
+     border-radius: 100%;
+     object-fit: cover;
+     object-position: center;
+}
+
+.post_header-data {
+     width: 15%;
+     font-size: 10px;
+     font-weight: 600;
+     padding: 1rem 0;
+     word-break: break-all;
+}
+
+.post_body {
+     padding: 1rem;
+}
+
+.post_text {
+     font-size: 12px;
+     font-weight: 600;
+     padding: .2rem 0;
+     word-break: break-all;
+}
+
+.post_text:empty {
+     padding: 0;
+}
+
+.post_image img {
+     box-sizing: border-box;
+     width: 100%;
+     border-radius: 12px;
+     object-fit: cover;
+}
+
+
+.post_footer-likesCount {
+     margin-left: 1rem;
+     font-size: 10px;
+     font-weight: 600;
+     padding: .2rem 0;
+     word-break: break-all;
+}
+
+
+.post_footer-like {
+     /* EStilize o Botão de dar like */
+     background-color: transparent;
+     border: none;
+     cursor: pointer;
+}
+
+.post_footer-like:hover {
+     /* EStilize o Botão de dar like */
+     scale: 1.2;
+}
+
+
+
+/* Responsividade Celular */
+
+@media (max-width: 768px) {
+     .feed_box {
+          width: 90%;
+     }
+
+     .feed_box-header {
+          width: 30%;
+     }
+
+     .feed_box-body {
+          width: 100%;
+     }
+
+     .feed_box-textarea {
+          width: 100%;
+          height: 50%;
+     }
+
+     .feed_box-buttons {
+          width: 100%;
+          padding: 1rem 0;
+     }
+
+     .feed_box-buttons--functions {
+          width: 80%;
+     }
+
+     .feed_box-buttons--criar {
+          width: 20%;
+     }
+
+     .feed_box-buttons--criar button {
+          width: 100%;
+     }
+
+     .post {
+          width: 90%;
+     }
+
+     .post_header {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          gap: 5px;
+          align-items: center;
+     }
 }

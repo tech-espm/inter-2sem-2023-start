@@ -54,9 +54,11 @@
 			body: JSON.stringify({ email, password })
 		})
 			.then(response => {
-				console.log(response);
 				if (response.status === 200) {
-					window.location.href = '/feed';
+					response.json().then(data => {
+						localStorage.setItem('userInfos', JSON.stringify(data));
+						window.location.href = '/feed';
+					});
 				} else {
 					alert('Email ou senha incorretos');
 				}
