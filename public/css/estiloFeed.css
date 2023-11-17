@@ -149,42 +149,53 @@
 .post_header {
      display: flex;
      flex-direction: row;
-     justify-content: flex-start;
-     gap: 5px;
+     justify-content: space-around;
      align-items: center;
 }
 
-
-.post_header-title {
-     width: 70%;
-     font-size: 13px;
-     font-weight: 600;
-     word-break: break-all;
+.post_header-box {
+     width: 50%;
+     display: flex;
+     flex-direction: row;
+     align-items: center;
 }
 
-.post_header-verify {
-     width: 10px;
-     font-size: 10px;
-     font-weight: 600;
-     padding: 1rem 0;
-     word-break: break-all;
+.post_header-boxData {
+     width: 50%;
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: end;
 }
 
 .post_header-icon {
      width: 30px;
      height: 30px;
-
      border-radius: 100%;
      object-fit: cover;
      object-position: center;
 }
 
+.post_header-title {
+     width: 85%;
+     font-size: 13px;
+     font-weight: 600;
+     word-break: break-all;
+}
+
 .post_header-data {
-     width: 15%;
+     width: 90%;
      font-size: 10px;
      font-weight: 600;
      padding: 1rem 0;
      word-break: break-all;
+     text-align: right;
+}
+
+.post_Header-remove {
+     background-color: transparent;
+     border: none;
+     cursor: pointer;
 }
 
 .post_body {
@@ -209,7 +220,6 @@
      object-fit: cover;
 }
 
-
 .post_footer-likesCount {
      margin-left: 1rem;
      font-size: 10px;
@@ -218,18 +228,33 @@
      word-break: break-all;
 }
 
-
 .post_footer-like {
-     /* EStilize o Botão de dar like */
      background-color: transparent;
      border: none;
      cursor: pointer;
 }
 
 .post_footer-like:hover {
-     /* EStilize o Botão de dar like */
+     transform: scale(1.2);
+}
+
+
+.post_footer-like {
+     background-color: transparent;
+     border: none;
+     cursor: pointer;
+}
+
+.post_footer-like:hover {
      scale: 1.2;
 }
+
+.post_Header-remove.disable {
+     opacity: 0;
+     cursor: default;
+     z-index: -1;
+}
+
 
 
 

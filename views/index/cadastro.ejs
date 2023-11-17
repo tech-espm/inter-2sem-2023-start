@@ -112,32 +112,50 @@
 					document.getElementById('apelido').value = resp;
 					data.user = resp;
 					console.log(data);
+
+					fetch('http://localhost:3000/user/create', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(data)
+					})
+						.then(response => {
+							if (response.ok) {
+								alert('Usuário criado com sucesso!');
+								window.location.href = '/login';
+							} else {
+								alert('Houve um erro ao criar o usuário.');
+							}
+						})
+						.catch(error => {
+							alert('Houve um erro ao criar o usuário:', error);
+						});
 				})
 				.catch(error => {
 					console.error(error);
 				});
 		} else {
 			console.log(data);
-		}
-
-		fetch('http://localhost:3000/user/create', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => {
-				if (response.ok) {
-					alert('Usuário criado com sucesso!');
-					window.location.href = '/login';
-				} else {
-					alert('Houve um erro ao criar o usuário.');
-				}
+			fetch('http://localhost:3000/user/create', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
 			})
-			.catch(error => {
-				alert('Houve um erro ao criar o usuário:', error);
-			});
-	});
+				.then(response => {
+					if (response.ok) {
+						alert('Usuário criado com sucesso!');
+						window.location.href = '/login';
+					} else {
+						alert('Houve um erro ao criar o usuário.');
+					}
+				})
+				.catch(error => {
+					alert('Houve um erro ao criar o usuário:', error);
+				});
+		}
+	})
 
 </script>

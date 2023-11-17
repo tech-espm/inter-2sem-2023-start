@@ -8,7 +8,7 @@
                     </div>
                     <div class="feed_box-body">
                          <div class="feed_box-textarea">
-                              <textarea name="post" id="post" cols="30" rows="10" value=""
+                              <textarea name="post" id="post" cols="30" rows="10" value="" maxlength="350"
                                    placeholder="No que você está pensando?"></textarea>
                          </div>
                          <div class="imagem-preview">
@@ -19,7 +19,7 @@
                          <div class="feed_box-buttons">
                               <div class="feed_box-buttons--functions">
                                    <label class="feed-button" for="choose-image">📁</label>
-                                   <input type="file" id="choose-image"></input>
+                                   <input type="file" id="choose-image" accept="image/png, image/jpeg, image/webp" />
                                    <button class="feed-button" id="emoji">Emoji</button>
                               </div>
                               <div class="feed_box-buttons--criar">
@@ -28,11 +28,10 @@
                          </div>
                     </div>
                </div>
-               <div class="feed_body">
+               <div class="feed_body" id="feed-body">
                </div>
           </div>
      </div>
-
      <script>
           const userInfos = JSON.parse(localStorage.getItem('userInfos'));
           console.log(userInfos);
@@ -117,136 +116,109 @@
 
           });
 
-     </script>
 
-     <script>
           const feedBody = document.querySelector('.feed_body');
-          const renderedPosts = new Set();
+          const renderizados = new Set();
 
-          window.addEventListener('scroll', () => {
-               const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+          let page = 1;
+          const postsPorPage = 10;
+          let isCarregado = false;
 
-               if (scrollTop + clientHeight >= scrollHeight - 5) {
-                    getPosts();
-               }
-          });
-
-          window.addEventListener('load', () => {
-               getPosts();
-          });
-
-
-          async function getPosts() {
-               const response = await fetch(`http://localhost:3000/post/getAllPosts`);
+          async function loadPosts() {
+               isCarregado = true;
+               const response = await fetch(`http://localhost:3000/post/getAllPosts?page=${page}&limit=${postsPorPage}`);
                const posts = await response.json();
+               const feedBody = document.getElementById('feed-body');
 
                posts.forEach((post) => {
-                    if (!renderedPosts.has(post.id)) {
-                         renderedPosts.add(post.id);
+                    if (!renderizados.has(post.id)) {
+                         renderizados.add(post.id);
 
                          const postElement = document.createElement('div');
                          postElement.classList.add('post');
 
-                         const postHeader = document.createElement('div');
-                         postHeader.classList.add('post_header');
-
-                         const postHeaderIcon = document.createElement('img');
-                         postHeaderIcon.classList.add('post_header-icon');
-                         postHeaderIcon.src = '../../public/img/imagens/default-icon.jpg';
-
-                         const postHeaderDiv = document.createElement('div');
-                         postHeaderDiv.classList.add('post_header-ultra');
-
-                         const postHeaderTitle = document.createElement('h1');
-                         postHeaderTitle.classList.add('post_header-title');
-                         postHeaderTitle.innerHTML = post.userName;
-
-                         const postHeaderVerify = document.createElement('img');
-                         postHeaderVerify.classList.add('post_header-verify');
-                         postHeaderVerify.src = '../../public/img/imagens/verify.png';
-
-                         const postHeaderDate = document.createElement('h2');
-                         postHeaderDate.classList.add('post_header-data');
-                         postHeaderDate.innerHTML = new Date(post.date).toLocaleDateString('pt-BR');
-
-                         const postBody = document.createElement('div');
-                         postBody.classList.add('post_body');
-
-                         const postText = document.createElement('p');
-                         postText.classList.add('post_text');
-                         postText.innerHTML = post.contentText;
-
-                         const postImage = document.createElement('div');
-                         postImage.classList.add('post_image');
-
-                         if (post.isImage == 1 && post.contentImage != null) {
-                              function Base64ToImage(base64) {
-                                   const img = new Image();
-                                   img.src = base64;
-                                   return img;
-                              }
-
-                              const postImageContent = Base64ToImage(post.contentImage);
-                              postImage.appendChild(postImageContent);
-                         }
-
-                         const postFooter = document.createElement('div');
-                         postFooter.classList.add('post_footer');
-
-                         const likesCount = document.createElement('span');
-                         likesCount.classList.add('post_footer-likesCount');
-                         likesCount.innerHTML = post.likes;
-
-                         const postFooterLike = document.createElement('button');
-                         postFooterLike.classList.add('post_footer-like');
-                         postFooterLike.innerHTML = '❤️';
-
-                         const hasLiked = localStorage.getItem('likedPosts') ? JSON.parse(localStorage.getItem('likedPosts')) : [];
-
-                         if (hasLiked.includes(post.id)) {
-                              postFooterLike.disabled = true;
-                         }
-
-                         postFooterLike.addEventListener('click', () => {
-                              hasLiked.push(post.id);
-                              localStorage.setItem('likedPosts', JSON.stringify(hasLiked));
-
-                              fetch('http://localhost:3000/post/like', {
-                                   method: 'POST',
-                                   headers: {
-                                        'Content-Type': 'application/json',
-                                   },
-                                   body: JSON.stringify({ postId: post.id }),
-                              })
-                                   .then((response) => {
-                                        console.log(response);
-                                        likesCount.innerHTML = parseInt(likesCount.innerHTML) + 1;
-                                        window.location.reload();
-                                   })
-                                   .catch((err) => {
-                                        console.log(err);
-                                   });
-                         });
-
-                         postHeader.appendChild(postHeaderIcon);
-                         postHeader.appendChild(postHeaderTitle);
-                         if (userInfos.isVerified == 1) {
-                              postHeader.appendChild(postHeaderVerify);
-                         }
-                         postHeader.appendChild(postHeaderDate);
-
-                         postBody.appendChild(postText);
-                         postBody.appendChild(postImage);
-
-                         postFooter.appendChild(likesCount);
-                         postFooter.appendChild(postFooterLike);
-
-                         postElement.appendChild(postHeader);
-                         postElement.appendChild(postBody);
-                         postElement.appendChild(postFooter);
+                         postElement.innerHTML = `
+                                       <div class="post_header">
+                                        <div class="post_header-box">
+                                             <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
+                                             <h1 class="post_header-title">${post.userName}</h1>
+                                             
+                                        </div>
+                                        <div class="post_header-boxData">
+                                             <h2 class="post_header-data">${new Date(post.date).toLocaleDateString('pt-BR')}</h2>
+                                             ${userInfos.Id_user === post.userId ? `<button class="post_Header-remove" onclick="removePost(${post.id})">🗑️</button>` : `<button class="post_Header-remove disable" onclick="removePost(${post.id})">🗑️</button>`}
+                                        </div>
+                                   </div>
+                                   <div class="post_body">
+                                        <p class="post_text">${post.contentText}</p>
+                                        ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image"><img src="${post.contentImage}"></div>` : ''}
+                                   </div>
+                                   <div class="post_footer">
+                                        <span class="post_footer-likesCount">${post.likes}</span>
+                                        <button class="post_footer-like" onclick="likePost(${post.id})" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
+                                   </div>
+                         `;
 
                          feedBody.appendChild(postElement);
                     }
                });
+
+               isCarregado = false;
           }
+
+          function checkScroll() {
+               const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+               if (scrollTop + clientHeight >= scrollHeight - 5 && !isCarregado) {
+                    page++;
+                    loadPosts();
+               }
+          }
+
+          window.addEventListener('scroll', checkScroll);
+          window.addEventListener('load', loadPosts);
+
+
+          function likePost(postId) {
+               const hasLiked = localStorage.getItem('likedPosts') ? JSON.parse(localStorage.getItem('likedPosts')) : [];
+
+               if (hasLiked.includes(postId)) {
+                    return;
+               }
+
+               hasLiked.push(postId);
+               localStorage.setItem('likedPosts', JSON.stringify(hasLiked));
+
+               fetch('http://localhost:3000/post/like', {
+                    method: 'POST',
+                    headers: {
+                         'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ postId }),
+               })
+                    .then((response) => {
+                         console.log(response);
+                         window.location.reload();
+                    })
+                    .catch((err) => {
+                         console.log(err);
+                    });
+          }
+
+          function removePost(postId) {
+               fetch(`http://localhost:3000/post/delete/?postId=${postId}&userId=${userInfos.Id_user}`, {
+                    method: 'DELETE',
+                    headers: {
+                         'Content-Type': 'application/json',
+                    },
+               })
+                    .then((response) => {
+                         console.log(response);
+                         window.location.reload();
+                    })
+                    .catch((err) => {
+                         console.log(err);
+                    });
+          }
+
+
      </script>

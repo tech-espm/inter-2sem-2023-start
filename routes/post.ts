@@ -16,7 +16,6 @@ interface UserPost {
 interface DeletePost {
      postId: number;
      userId: number;
-     date: Date;
 }
 
 class UserPost {
@@ -134,15 +133,35 @@ class UserPost {
      }
 
 
-
-
-
+     @app.http.delete()
      public async delete(req: app.Request, res: app.Response) {
           let deletePost: DeletePost = {
                postId: Number(req.query.postId),
                userId: Number(req.query.userId),
-               date: new Date(req.query.date as string),
           }
+
+          await app.sql.connect(async (sql) => {
+               const checkQuery = `
+                    select Id_user
+                    from post
+                    where Id_post = ?
+               `;
+
+               const checkResult = await sql.query(checkQuery, [deletePost.postId]);
+
+               if (checkResult.length > 0 && (checkResult[0] as any).Id_user === deletePost.userId) {
+                    const deleteQuery = `
+                         delete from post
+                         where Id_post = ? and Id_user = ?
+                    `;
+
+                    const result = await sql.query(deleteQuery, [deletePost.postId, deletePost.userId]);
+
+                    res.send(result);
+               } else {
+                    res.status(403).send("Não foi possivel remover esse post.");
+               }
+          });
 
           res.send(deletePost);
      }
