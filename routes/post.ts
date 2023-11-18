@@ -1,6 +1,5 @@
 import app = require('teem')
 const { storage } = require('../services/firebase');
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 interface UserPost {
      id: number;
@@ -36,10 +35,16 @@ class UserPost {
                          p.Id_user,
                          p.Likes,
                          u.User as userName,
-                         u.Foto as userPhoto
+                         u.Foto as userPhoto,
+                         c.id as Id_comentario,
+                         c.postId as comentarioPostId,
+                         c.comentarios as comentarioConteudo,
+                         c.userName as comentarioUserName,
+                         c.userId as comentarioUserId
                     from
                          post p
                          inner join usuario u on u.Id_user = p.Id_user
+                         left join comentarios c on c.postId = p.Id_post
                     order by
                          p.Data_post desc
                `);
@@ -54,7 +59,14 @@ class UserPost {
                          userId: post.Id_user,
                          userName: post.userName,
                          userPhoto: post.userPhoto,
-                         likes: post.Likes
+                         likes: post.Likes,
+                         comments: {
+                              id: post.Id_comentario,
+                              postId: post.comentarioPostId,
+                              content: post.comentarioConteudo,
+                              userName: post.comentarioUserName,
+                              userId: post.comentarioUserId,
+                         }
                     }
                });
 
@@ -132,7 +144,6 @@ class UserPost {
           });
      }
 
-
      @app.http.delete()
      public async delete(req: app.Request, res: app.Response) {
           let deletePost: DeletePost = {
@@ -166,9 +177,74 @@ class UserPost {
           res.send(deletePost);
      }
 
+     @app.http.post()
+     public async comment(req: app.Request, res: app.Response) {
+          const comment = {
+               commentText: req.body.comment,
+               postId: req.body.postId,
+               userId: req.body.userId,
+               userName: req.body.userName,
+          };
 
 
+          await app.sql.connect(async (sql) => {
+               const insertQuery = `
+                    insert into
+                         comentarios(
+                              postId,
+                              userId,
+                              userName,
+                              comentarios
+                         )
+                    values(
+                         ?,
+                         ?,
+                         ?,
+                         ?
+                    )
+               `;
 
+               const result = await sql.query(insertQuery, [
+                    comment.postId,
+                    comment.userId,
+                    comment.userName,
+                    comment.commentText
+               ]);
+
+
+               const updateQuery = `
+                    update post
+                    set Comentarios = Comentarios + 1
+                    where Id_post = ?
+               `;
+
+               const updateResult = await sql.query(updateQuery, [comment.postId]);
+
+               res.send(result);
+          })
+     }
+
+
+     @app.http.post()
+     public async getComments(req: app.Request, res: app.Response) {
+          const postId = req.body.postId;
+
+          await app.sql.connect(async (sql) => {
+               const selectQuery = `
+                    select
+                         *
+                    from
+                         comentarios
+                    where
+                         postId = ?
+               `;
+
+               const selectResult = await sql.query(selectQuery, [postId]);
+
+               res.send(selectResult);
+          });
+     }
 }
+
 
 export = UserPost;

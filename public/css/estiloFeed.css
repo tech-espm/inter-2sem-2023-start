@@ -61,6 +61,7 @@
 .feed_box-buttons {
      display: flex;
      justify-content: end;
+     align-items: center;
      width: 100%;
      padding: 1rem 0;
 }
@@ -106,6 +107,18 @@
      background-color: #202020;
      color: #fff;
 }
+
+.feed-button.label {
+     background-color: transparent;
+     font-size: 1rem;
+     cursor: pointer;
+}
+
+.feed-button.label:hover {
+     background-color: #e4e4e4;
+     color: #000;
+}
+
 
 #choose-image {
      display: none
@@ -205,7 +218,7 @@
 .post_text {
      font-size: 12px;
      font-weight: 600;
-     padding: .2rem 0;
+     margin-bottom: .5rem;
      word-break: break-all;
 }
 
@@ -213,11 +226,25 @@
      padding: 0;
 }
 
-.post_image img {
+.post_image {
      box-sizing: border-box;
      width: 100%;
-     border-radius: 12px;
+}
+
+.post_image__img {
+     box-sizing: border-box;
+     width: 100%;
+     height: 25rem;
      object-fit: cover;
+     border-radius: 12px;
+     transition: height 500ms ease-in-out;
+     overflow: hidden;
+}
+
+.post_image__img:hover {
+     height: auto;
+     z-index: 100;
+     transition: height 500ms ease-in-out;
 }
 
 .post_footer-likesCount {
@@ -232,9 +259,11 @@
      background-color: transparent;
      border: none;
      cursor: pointer;
+     transition: all 200ms ease-in;
 }
 
 .post_footer-like:hover {
+     transition: all 200ms ease-in;
      transform: scale(1.2);
 }
 
@@ -255,8 +284,84 @@
      z-index: -1;
 }
 
+.post_comments {
+     display: flex;
+     flex-direction: column;
+}
 
+.post_comments_area {
+     width: 100%;
+}
 
+.post_comments__input {
+     width: 100%;
+     height: 100%;
+     resize: none;
+     border: none;
+     margin-top: 1rem;
+     padding: .5rem;
+     font-size: 13px;
+     font-weight: 500;
+     font-family: 'Inter', sans-serif;
+     border-radius: 8px;
+     box-sizing: border-box;
+
+}
+
+.post_comments__container {
+     width: 100%;
+     margin-top: 1rem;
+     padding: 0 1.5rem;
+}
+
+.post_comments__box {
+     width: fit-content;
+     display: flex;
+     flex-direction: column;
+     margin: 0;
+}
+
+.post_comments__header {
+     box-sizing: border-box;
+     padding: .2rem;
+     width: 100%;
+     display: flex;
+     align-items: center;
+}
+
+.post_comments__icon {
+     width: 15px;
+     height: 15px;
+     border-radius: 100%;
+     margin: 0;
+}
+
+.post_comments__title {
+     width: fit-content;
+     font-size: 13px;
+     font-weight: bold;
+     word-break: break-all;
+     margin-left: .4rem;
+}
+
+.post_comments__text {
+     width: 90%;
+     text-align: left;
+     font-size: 12px;
+     font-weight: 600;
+     padding: .2rem 0;
+     margin: 0;
+     word-break: break-all;
+}
+
+.post_comments__noComments {
+     font-size: 12px;
+     font-weight: 600;
+     padding: .2rem 0;
+     word-break: break-all;
+     text-align: center;
+
+}
 
 /* Responsividade Celular */
 
@@ -265,45 +370,37 @@
           width: 90%;
      }
 
-     .feed_box-header {
-          width: 30%;
+     .post {
+          width: 90%;
      }
+}
 
-     .feed_box-body {
-          width: 100%;
-     }
-
-     .feed_box-textarea {
-          width: 100%;
-          height: 50%;
-     }
-
-     .feed_box-buttons {
-          width: 100%;
-          padding: 1rem 0;
-     }
-
-     .feed_box-buttons--functions {
-          width: 80%;
-     }
-
-     .feed_box-buttons--criar {
-          width: 20%;
-     }
-
-     .feed_box-buttons--criar button {
+@media (max-width: 425px) {
+     .feed_box {
           width: 100%;
      }
 
      .post {
-          width: 90%;
+          width: 100%;
+     }
+}
+
+@media (max-width: 375px) {
+     .feed_box {
+          width: 100%;
      }
 
-     .post_header {
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          gap: 5px;
-          align-items: center;
+     .post {
+          width: 100%;
+     }
+}
+
+@media (max-width: 320px) {
+     .feed_box {
+          width: 100%;
+     }
+
+     .post {
+          width: 100%;
      }
 }
