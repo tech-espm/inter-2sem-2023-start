@@ -125,12 +125,11 @@
 
           async function loadPosts() {
                isCarregado = true;
-               const response = await fetch(`http://localhost:3000/post/getAllPosts?page=${page}&limit=${postsPorPage}`);
+               const response = await fetch(`http://localhost:3000/post/getAllPosts`);
                const posts = await response.json();
                const feedBody = document.getElementById('feed-body');
 
                posts.forEach((post) => {
-
                     if (!renderizados.has(post.id)) {
                          renderizados.add(post.id);
 
@@ -167,7 +166,9 @@
                                              <img class="post_comments__icon" src="../../public/img/imagens/default-icon.jpg">
                                              <h1 class="post_comments__title">${comment.userName}</h1>
                                         </div>
-                                             <p class="post_comments__text">${comment.comentarios}</p>
+                                        <div class="post_comments__body">
+                                             <p class="post_comments__text">${comment.comentarios}</p>     
+                                        </div>
                                         `;
                                         commentsContainer.appendChild(commentElement);
                                    });
@@ -184,6 +185,7 @@
 
                               const commentInputId = `comment-${post.id}`;
                               const commentInput = document.createElement('input');
+                              commentInput.maxLength = 350;
                               commentInput.classList.add('post_comments__input');
                               commentInput.placeholder = `Comente sua opinião sobre o post de ${post.userName}`;
                               commentInput.id = commentInputId;

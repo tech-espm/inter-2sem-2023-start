@@ -49,7 +49,7 @@ class User {
                     from
                          usuario
                     where
-                         Nm_user = ? or Email = ?
+                         User = ? or Email = ?
                `;
 
                const result = await sql.query(selectQuery, [user.name, user.email]);

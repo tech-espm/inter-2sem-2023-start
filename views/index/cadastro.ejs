@@ -16,12 +16,19 @@
 						<input type="text" class="form_group__input" id="nome" name="nome" required>
 					</div>
 					<div class="form_group">
+
 						<label for="apelido" class="form_group__label">Usuário</label>
 						<input type="text" class="form_group__input" id="apelido" name="apelido" required>
+
 					</div>
+					<div class="form_group buttons">
+						<button onclick="gerarApelido()">🔁</button>
+					</div>
+
 					<div class="form_group">
 						<label for="idade" class="form_group__label">Idade</label>
-						<input type="text" class="form_group__input" id="idade" name="idade" required>
+						<input type="number" class="form_group__input" id="idade" name="idade" required min="16"
+							max="100">
 					</div>
 				</div>
 				<div class="form_group">
@@ -32,11 +39,6 @@
 					<div class="form_group">
 						<label for="senha" class="form_group__label">Senha</label>
 						<input type="password" class="form_group__input" id="senha" name="senha" required>
-					</div>
-					<div class="form_group">
-						<label for="confirmarSenha" class="form_group__label">Confirmar senha</label>
-						<input type="password" class="form_group__input" id="confirmarSenha" name="confirmarSenha"
-							required>
 					</div>
 				</div>
 				<div class="form_group__checkbox">
@@ -93,69 +95,55 @@
 			return;
 		}
 
-		if (isAnonimo) {
-			fetch('http://localhost:3000/user/gerarAnonimo', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
+
+		fetch('http://localhost:3000/user/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (response.ok) {
+					alert('Usuário criado com sucesso!');
+					window.location.href = '/login';
+				} else {
+					alert('Houve um erro ao criar o usuário.');
 				}
 			})
-				.then(response => {
-					if (response.ok) {
-						return response.json();
-					} else {
-						throw new Error('Houve um erro ao gerar o apelido.');
-					}
-				})
-				.then(resp => {
-					console.log('Apelido gerado com sucesso! ', resp);
-					document.getElementById('apelido').value = resp;
-					data.user = resp;
-					console.log(data);
+			.catch(error => {
+				alert('Houve um erro ao criar o usuário:', error);
+			});
 
-					fetch('http://localhost:3000/user/create', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify(data)
-					})
-						.then(response => {
-							if (response.ok) {
-								alert('Usuário criado com sucesso!');
-								window.location.href = '/login';
-							} else {
-								alert('Houve um erro ao criar o usuário.');
-							}
-						})
-						.catch(error => {
-							alert('Houve um erro ao criar o usuário:', error);
-						});
-				})
-				.catch(error => {
-					console.error(error);
-				});
-		} else {
-			console.log(data);
-			fetch('http://localhost:3000/user/create', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-				.then(response => {
-					if (response.ok) {
-						alert('Usuário criado com sucesso!');
-						window.location.href = '/login';
-					} else {
-						alert('Houve um erro ao criar o usuário.');
-					}
-				})
-				.catch(error => {
-					alert('Houve um erro ao criar o usuário:', error);
-				});
-		}
 	})
+
+	function gerarApelido() {
+		fetch('http://localhost:3000/user/gerarAnonimo', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error('Houve um erro ao gerar o apelido.');
+				}
+			})
+			.then(resp => {
+				console.log('Apelido gerado com sucesso! ', resp);
+				document.getElementById('apelido').value = resp;
+				data.user = resp;
+				console.log(resp);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	}
+
+
+
+	console.log(document.getElementById('apelido').value)
 
 </script>

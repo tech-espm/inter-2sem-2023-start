@@ -237,14 +237,14 @@
      height: 25rem;
      object-fit: cover;
      border-radius: 12px;
-     transition: height 500ms ease-in-out;
+     transition: all 600ms ease-in;
      overflow: hidden;
 }
 
 .post_image__img:hover {
-     height: auto;
+     height: 100%;
      z-index: 100;
-     transition: height 500ms ease-in-out;
+     transition: all 1s ease-out;
 }
 
 .post_footer-likesCount {
@@ -287,6 +287,8 @@
 .post_comments {
      display: flex;
      flex-direction: column;
+     padding: 0 1rem;
+     width: 1;
 }
 
 .post_comments_area {
@@ -311,23 +313,28 @@
 .post_comments__container {
      width: 100%;
      margin-top: 1rem;
-     padding: 0 1.5rem;
 }
 
 .post_comments__box {
-     width: fit-content;
+     width: 100%;
      display: flex;
      flex-direction: column;
-     margin: 0;
+     gap: 4px;
+     margin: .5rem 0;
 }
 
 .post_comments__header {
      box-sizing: border-box;
-     padding: .2rem;
      width: 100%;
      display: flex;
      align-items: center;
 }
+
+.post_comments__body {
+     width: 100%;
+     box-sizing: border-box;
+}
+
 
 .post_comments__icon {
      width: 15px;
@@ -345,11 +352,11 @@
 }
 
 .post_comments__text {
-     width: 90%;
+     width: 100%;
+     box-sizing: border-box;
      text-align: left;
      font-size: 12px;
      font-weight: 600;
-     padding: .2rem 0;
      margin: 0;
      word-break: break-all;
 }

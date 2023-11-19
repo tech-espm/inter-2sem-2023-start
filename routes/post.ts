@@ -22,6 +22,18 @@ class UserPost {
           res.send("Testando");
      }
 
+
+     /**
+     * Rota para pegar todos os posts do banco de dados.
+     * @param req - O objeto de solicitação.
+     * @param res - O objeto de resposta.
+     * @returns Retorna um array de posts.
+     * 
+     * @example - Dentro do front-end, você pode usar o fetch para pegar os posts:
+     * getAllPosts()
+     * 
+     */
+
      @app.http.get()
      public async getAllPosts(req: app.Request, res: app.Response) {
           await app.sql.connect(async (sql) => {
@@ -74,6 +86,18 @@ class UserPost {
           });
      }
 
+     /**
+      *  Rota para dar like em um post.
+      *  
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      * 
+      * @example - Dentro do front-end, você pode usar o fetch para dar like em um post:
+      * likePost()
+      * 
+      *  
+      */
+
      @app.http.post()
      public async like(req: app.Request, res: app.Response) {
           const like = {
@@ -106,6 +130,18 @@ class UserPost {
                res.send(updateResult);
           });
      }
+
+
+     /**
+      * Rota para pegar os posts de um usuário.
+      * @param req - O objeto de solicitação.
+      * @param res - O objeto de resposta.
+      * @returns Retorna um array de posts.
+      * 
+      * @example - Dentro do front-end, você pode usar o fetch para pegar os posts de um usuário:
+      * getUserPosts()
+      * 
+      */
 
      @app.http.post()
      public async create(req: app.Request, res: app.Response) {
