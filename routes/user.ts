@@ -108,6 +108,7 @@ class User {
                console.log(result)
                if (result.length === 0) {
                     console.log("Usuário não encontrado");
+                    res.status(404).json({ error: "Usuário não encontrado" });
                } else {
                     console.log("Usuário encontrado");
                     res.status(200).json(result[0]);

@@ -370,6 +370,11 @@
 
 }
 
+
+.post_text--hashtag {
+     color: blue;
+}
+
 /* Responsividade Celular */
 
 @media (max-width: 768px) {

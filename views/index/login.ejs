@@ -26,11 +26,13 @@
 				</div>
 
 				<div class="container_formBody__buttons">
-					<button type="submit">Entrar</button>
+					<button id="loginButton" type="submit">Entrar</button>
 					<a href="/" class="voltar-cadastro">Voltar</a>
 				</div>
-
 			</form>
+			<div id="warningError">
+
+			</div>
 		</div>
 
 	</div>
@@ -44,6 +46,9 @@
 		e.preventDefault();
 		const email = document.getElementById('emailUser').value;
 		const password = document.getElementById('senhaUser').value;
+
+		const warning = document.getElementById('warningError');
+
 		console.log("Fui enviado", email, password);
 
 		fetch('http://localhost:3000/user/login', {
@@ -56,11 +61,17 @@
 			.then(response => {
 				if (response.status === 200) {
 					response.json().then(data => {
+						localStorage.removeItem('userInfos');
+						localStorage.removeItem('likedPosts')
 						localStorage.setItem('userInfos', JSON.stringify(data));
 						window.location.href = '/feed';
 					});
 				} else {
-					alert('Email ou senha incorretos');
+					warning.innerHTML = "Email ou senha incorretos";
+
+					setTimeout(() => {
+						warning.innerHTML = "";
+					}, 3000);
 				}
 			})
 			.catch(error => {

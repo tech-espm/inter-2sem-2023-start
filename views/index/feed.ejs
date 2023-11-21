@@ -34,11 +34,8 @@
      </div>
      <script>
           const userInfos = JSON.parse(localStorage.getItem('userInfos'));
-          console.log(userInfos);
-
           const userName = document.getElementById('userName');
           userName.innerHTML = userInfos.User;
-
           const chooseImage = document.getElementById('choose-image');
           const imagemChoosed = document.getElementById('imagem-choosed');
 
@@ -84,7 +81,12 @@
                          canvas.height = img.height;
                          ctx.drawImage(img, 0, 0, img.width, img.height);
 
-                         return canvas.toDataURL('image/webp', 0.8);
+                         console.log(img.size);
+
+                         const maxSize = 2 * 1024 * 1024;
+                         const resolucao = img.size > maxSize ? 0.6 : 1;
+
+                         return canvas.toDataURL('image/webp', resolucao);
                     })
                     .catch((err) => {
                          console.log(err);
@@ -105,12 +107,9 @@
                     body: JSON.stringify(postContent),
                })
                     .then((response) => {
-                         console.log(postContent);
-                         console.log(response);
                          window.location.reload();
                     })
                     .catch((err) => {
-                         console.log(postContent);
                          console.log(err);
                     });
 
@@ -118,70 +117,131 @@
 
           const feedBody = document.querySelector('.feed_body');
           const renderizados = new Set();
-
-          let page = 1;
-          const postsPorPage = 10;
           let isCarregado = false;
 
           async function loadPosts() {
                isCarregado = true;
-               const response = await fetch(`http://localhost:3000/post/getAllPosts`);
-               const posts = await response.json();
-               const feedBody = document.getElementById('feed-body');
+               try {
+                    const response = await fetch(`http://localhost:3000/post/getAllPosts`);
+                    const posts = await response.json();
+                    const feedBody = document.getElementById('feed-body');
 
-               posts.forEach((post) => {
-                    if (!renderizados.has(post.id)) {
-                         renderizados.add(post.id);
+                    await Promise.all(posts.map(async (post) => {
+                         if (!renderizados.has(post.id)) {
+                              console.log(isCarregado)
+                              renderizados.add(post.id);
+                              let comentarios = [];
 
-                         let comentarios = [];
-
-                         fetch(`http://localhost:3000/post/getComments`, {
-                              method: 'POST',
-                              headers: {
-                                   'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({ postId: post.id }),
-
-                         })
-                              .then((response) => response.json())
-                              .then((comments) => {
-                                   console.log(comments);
-                                   comentarios = comments;
-                                   renderComments(comentarios);
-                              })
-                              .catch((err) => {
-                                   console.log(err);
-                              });
-
-                         function renderComments(comments) {
-                              const commentsContainer = document.createElement('div');
-                              commentsContainer.classList.add('post_comments__container');
-
-                              if (comments.length > 0) {
-                                   comments.forEach((comment) => {
-                                        const commentElement = document.createElement('div');
-                                        commentElement.classList.add('post_comments__box');
-                                        commentElement.innerHTML = `
-                                        <div class="post_comments__header">
-                                             <img class="post_comments__icon" src="../../public/img/imagens/default-icon.jpg">
-                                             <h1 class="post_comments__title">${comment.userName}</h1>
-                                        </div>
-                                        <div class="post_comments__body">
-                                             <p class="post_comments__text">${comment.comentarios}</p>     
-                                        </div>
-                                        `;
-                                        commentsContainer.appendChild(commentElement);
+                              try {
+                                   const commentsResponse = await fetch(`http://localhost:3000/post/getComments`, {
+                                        method: 'POST',
+                                        headers: {
+                                             'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({ postId: post.id }),
                                    });
-                              } else {
-                                   const noCommentsElement = document.createElement('p');
-                                   noCommentsElement.textContent = 'Sem comentários';
-                                   noCommentsElement.classList.add('post_comments__noComments');
-                                   commentsContainer.appendChild(noCommentsElement);
+
+                                   comentarios = await commentsResponse.json();
+                              } catch (err) {
+                                   console.error(err);
                               }
 
-                              const postCommentsElement = document.createElement('div');
-                              postCommentsElement.classList.add('post_comments');
-                              postCommentsElement.appendChild(commentsContainer);
+                              function renderComments(comments) {
+                                   const commentsContainer = document.createElement('div');
+                                   commentsContainer.classList.add('post_comments__container');
+
+                                   if (comments.length > 0) {
+                                        comments.forEach((comment) => {
+                                             const commentElement = document.createElement('div');
+                                             commentElement.classList.add('post_comments__box');
+                                             commentElement.innerHTML = `
+                                                       <div class="post_comments__header">
+                                                            <img class="post_comments__icon" src="../../public/img/imagens/default-icon.jpg">
+                                                            <h1 class="post_comments__title">${comment.userName}</h1>
+                                                       </div>
+                                                       <div class="post_comments__body">
+                                                            <p class="post_comments__text">${comment.comentarios}</p>     
+                                                       </div>
+                                                  `;
+                                             commentsContainer.appendChild(commentElement);
+                                        });
+                                   } else {
+                                        const noCommentsElement = document.createElement('p');
+                                        noCommentsElement.textContent = 'Sem comentários';
+                                        noCommentsElement.classList.add('post_comments__noComments');
+                                        commentsContainer.appendChild(noCommentsElement);
+                                   }
+
+                                   const postCommentsElement = document.createElement('div');
+                                   postCommentsElement.classList.add('post_comments');
+                                   postCommentsElement.appendChild(commentsContainer);
+
+                                   const commentInputId = `comment-${post.id}`;
+                                   const commentInput = document.createElement('input');
+                                   commentInput.maxLength = 350;
+                                   commentInput.classList.add('post_comments__input');
+                                   commentInput.placeholder = `Comente sua opinião sobre o post de ${post.userName}`;
+                                   commentInput.id = commentInputId;
+                                   commentInput.addEventListener('keydown', (e) => {
+                                        if (e.key === 'Enter') {
+                                             commentPost(post.id, commentInput.value);
+                                        }
+                                   });
+
+                                   return postCommentsElement;
+                              }
+
+                              const postElement = document.createElement('div');
+                              postElement.classList.add('post');
+                              postElement.id = `post-${post.id}`;
+
+                              function hashtag() {
+                                   if (post.contentText.includes('#')) {
+                                        const postTextElement = postElement.querySelector('.post_text');
+                                        const palavra = post.contentText.split(' ');
+                                        const hashtagClass = 'post_text--hashtag';
+                                        palavra.forEach((word) => {
+                                             if (word.startsWith('#') && word.length > 1) {
+                                                  const spanElement = document.createElement('span');
+                                                  spanElement.classList.add(hashtagClass);
+                                                  spanElement.textContent = ' ' + word;
+                                                  postTextElement.appendChild(spanElement);
+                                             } else {
+                                                  postTextElement.appendChild(document.createTextNode(word + ' '));
+                                             }
+                                        });
+                                   } else {
+                                        const postTextElement = postElement.querySelector('.post_text');
+                                        postTextElement.textContent = post.contentText;
+                                   }
+                              }
+
+                              const postHTML = `
+                                             <div class="post_header">
+                                             <div class="post_header-box">
+                                                  <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
+                                                  <h1 class="post_header-title">${post.userName}</h1>
+                                             </div>
+                                             <div class="post_header-boxData">
+                                                  <h2 class="post_header-data">${new Date(post.date).toLocaleDateString('pt-BR')}</h2>
+                                                  ${userInfos.Id_user === post.userId ? `<button class="post_Header-remove" onclick="removePost(${post.id})">🗑️</button>` : `<button class="post_Header-remove disable" onclick="removePost(${post.id})">🗑️</button>`}
+                                             </div>
+                                             </div>
+                                             <div class="post_body">
+                                             <p class="post_text"></p>
+                                             ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img"  src="${post.contentImage}"></div>` : ''}
+                                             </div>
+                                             <div class="post_footer">
+                                             <span class="post_footer-likesCount">${post.likes}</span>
+                                             <button class="post_footer-like" onclick="likePost(${post.id})" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
+                                             <span class="post_footer-likesCount">${comentarios.length}</span>
+                                             <label class="post_footer-like" for="post_comments__input">💬</label>
+                                             </div>
+                                        `;
+
+                              postElement.innerHTML = postHTML;
+
+                              const postCommentsElement = renderComments(comentarios);
 
                               const commentInputId = `comment-${post.id}`;
                               const commentInput = document.createElement('input');
@@ -195,46 +255,30 @@
                                    }
                               });
 
-                              const postElement = document.createElement('div');
-                              postElement.classList.add('post');
-                              postElement.id = `post-${post.id}`;
-                              postElement.innerHTML = `
-                                   <div class="post_header">
-                                        <div class="post_header-box">
-                                             <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
-                                             <h1 class="post_header-title">${post.userName}</h1>
-                                        </div>
-                                        <div class="post_header-boxData">
-                                             <h2 class="post_header-data">${new Date(post.date).toLocaleDateString('pt-BR')}</h2>
-                                             ${userInfos.Id_user === post.userId ? `<button class="post_Header-remove" onclick="removePost(${post.id})">🗑️</button>` : `<button class="post_Header-remove disable" onclick="removePost(${post.id})">🗑️</button>`}
-                                        </div>
-                                   </div>
-                                   <div class="post_body">
-                                        <p class="post_text">${post.contentText}</p>
-                                        ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img"  src="${post.contentImage}"></div>` : ''}
-                                   </div>
-                                   <div class="post_footer">
-                                        <span class="post_footer-likesCount">${post.likes}</span>
-                                        <button class="post_footer-like" onclick="likePost(${post.id})" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
-                                        <span class="post_footer-likesCount">${comentarios.length}</span>
-                                        <label class="post_footer-like" for="post_comments__input">💬</label>
-                                   </div>
-                              `;
                               postElement.appendChild(postCommentsElement);
                               postElement.appendChild(commentInput);
 
                               feedBody.appendChild(postElement);
+                              hashtag();
                          }
-                    }
-
+                    }));
+               } catch (error) {
+                    console.error(error);
+               } finally {
                     isCarregado = false;
                }
-               )
           }
 
+          function checkScroll() {
+               const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+               if (scrollTop + clientHeight >= scrollHeight - 5 && !isCarregado) {
+                    loadPosts();
+               }
+          }
+
+          window.addEventListener('scroll', checkScroll);
 
           function commentPost(postId, comentario) {
-
                const commentContent = {
                     comment: comentario,
                     postId: postId,
@@ -250,24 +294,13 @@
                     body: JSON.stringify(commentContent),
                })
                     .then((response) => {
-                         console.log(response);
                          window.location.reload();
                     })
                     .catch((err) => {
-                         console.log("Deu merda");
                          console.log(err);
                     });
           }
 
-          function checkScroll() {
-               const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-               if (scrollTop + clientHeight >= scrollHeight - 5 && !isCarregado) {
-                    page++;
-                    loadPosts();
-               }
-          }
-
-          window.addEventListener('scroll', checkScroll);
           window.addEventListener('load', loadPosts);
 
           function likePost(postId) {
@@ -288,7 +321,6 @@
                     body: JSON.stringify({ postId }),
                })
                     .then((response) => {
-                         console.log(response);
                          window.location.reload();
                     })
                     .catch((err) => {
@@ -301,12 +333,10 @@
                     method: 'DELETE',
                })
                     .then((response) => {
-                         console.log(response);
                          window.location.reload();
                     })
                     .catch((err) => {
                          console.log(err);
                     });
           }
-
      </script>
