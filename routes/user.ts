@@ -138,7 +138,22 @@ class User {
 
                const result = await sql.query(selectQuery, [search]);
                console.log("Usuário lido com sucesso!");
-               res.json(result);
+
+               const userId = (result[0] as { Id_user: number }).Id_user;
+
+               const selectPostsQuery = `
+                  select
+                       *
+                  from
+                       post
+                  where
+                       Id_user = ?
+               `;
+
+               const posts = await sql.query(selectPostsQuery, [userId]);
+               console.log("Posts do usuário lidos com sucesso!");
+
+               res.json({ user: result[0], posts });
           });
      }
 
@@ -179,6 +194,9 @@ class User {
           res.json(nome);
      }
 
+     @app.http.put()
+     public async update(req: app.Request, res: app.Response) {
+     }
 }
 
 export = User;

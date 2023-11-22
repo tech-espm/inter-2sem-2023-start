@@ -46,6 +46,7 @@ class UserPost {
                          p.Data_post,
                          p.Id_user,
                          p.Likes,
+                         p.isEspecial,
                          u.User as userName,
                          u.Foto as userPhoto,
                          c.id as Id_comentario,
@@ -72,6 +73,7 @@ class UserPost {
                          userName: post.userName,
                          userPhoto: post.userPhoto,
                          likes: post.Likes,
+                         specialPost: post.isEspecial,
                          comments: {
                               id: post.Id_comentario,
                               postId: post.comentarioPostId,

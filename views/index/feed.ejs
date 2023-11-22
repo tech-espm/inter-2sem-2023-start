@@ -19,8 +19,8 @@
                          <div class="feed_box-buttons">
                               <div class="feed_box-buttons--functions">
                                    <label class="feed-button label" for="choose-image">📁</label>
-                                   <input type="file" id="choose-image" accept="image/png, image/jpeg, image/webp"
-                                        multiple />
+                                   <input type="file" id="choose-image"
+                                        accept="image/png, image/jpeg, image/webp, image/gif" />
                               </div>
                               <div class="feed_box-buttons--criar">
                                    <button class="feed-button" id="create-post">Criar post</button>
@@ -58,6 +58,7 @@
           createPostButton.addEventListener('click', async (e) => {
                const post = document.getElementById('post').value;
                const image = document.getElementById('choose-image').files[0];
+               const imageSize = image ? image.size : 0;
 
                async function convertToBase64(image) {
                     return new Promise((resolve, reject) => {
@@ -81,10 +82,8 @@
                          canvas.height = img.height;
                          ctx.drawImage(img, 0, 0, img.width, img.height);
 
-                         console.log(img.size);
-
-                         const maxSize = 2 * 1024 * 1024;
-                         const resolucao = img.size > maxSize ? 0.6 : 1;
+                         const tamanhoMaximo = 4 * 1024 * 1024;
+                         const resolucao = imageSize > tamanhoMaximo ? 0.8 : 1;
 
                          return canvas.toDataURL('image/webp', resolucao);
                     })
@@ -125,13 +124,11 @@
                     const response = await fetch(`http://localhost:3000/post/getAllPosts`);
                     const posts = await response.json();
                     const feedBody = document.getElementById('feed-body');
-
                     await Promise.all(posts.map(async (post) => {
                          if (!renderizados.has(post.id)) {
                               console.log(isCarregado)
                               renderizados.add(post.id);
                               let comentarios = [];
-
                               try {
                                    const commentsResponse = await fetch(`http://localhost:3000/post/getComments`, {
                                         method: 'POST',
@@ -216,7 +213,11 @@
                                    }
                               }
 
+
+                              let especialPost = post.specialPost == 1 ? '<h2 class="post_header-anuncio">Anúncio</h2>' : '';
+
                               const postHTML = `
+                                             ${especialPost}
                                              <div class="post_header">
                                              <div class="post_header-box">
                                                   <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
@@ -229,7 +230,7 @@
                                              </div>
                                              <div class="post_body">
                                              <p class="post_text"></p>
-                                             ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img"  src="${post.contentImage}"></div>` : ''}
+                                             ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img" src="${post.contentImage}"></div>` : ''}
                                              </div>
                                              <div class="post_footer">
                                              <span class="post_footer-likesCount">${post.likes}</span>

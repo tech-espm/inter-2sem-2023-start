@@ -41,6 +41,15 @@ class IndexRoute {
 
 		res.render("index/feed", opcoes);
 	}
+
+	public async perfil(req: app.Request, res: app.Response) {
+		let opcoes = {
+			titulo: "Perfil"
+
+		};
+
+		res.render("index/perfil", opcoes);
+	}
 }
 
 export = IndexRoute;

@@ -94,6 +94,7 @@
 }
 
 .feed-button {
+     width: 100%;
      padding: 10px 20px;
      border: none;
      border-radius: 5px;
@@ -373,6 +374,13 @@
 
 .post_text--hashtag {
      color: blue;
+}
+
+.post_header-anuncio {
+     margin: 0;
+     padding: 0;
+     font-size: 12px;
+     color: #515151;
 }
 
 /* Responsividade Celular */
