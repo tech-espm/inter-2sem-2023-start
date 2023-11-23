@@ -126,6 +126,7 @@
                     const feedBody = document.getElementById('feed-body');
                     await Promise.all(posts.map(async (post) => {
                          if (!renderizados.has(post.id)) {
+                              console.log(post)
                               console.log(isCarregado)
                               renderizados.add(post.id);
                               let comentarios = [];
@@ -221,7 +222,7 @@
                                              <div class="post_header">
                                              <div class="post_header-box">
                                                   <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
-                                                  <h1 class="post_header-title">${post.userName}</h1>
+                                                  <a class="post_header-title" href="/perfil?id=${post.userId}" >${post.userName}</a>
                                              </div>
                                              <div class="post_header-boxData">
                                                   <h2 class="post_header-data">${new Date(post.date).toLocaleDateString('pt-BR')}</h2>

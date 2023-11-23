@@ -1,18 +1,13 @@
 <%- include("../comum/barra.ejs") %>
      <div class="perfil">
-          <div class="config_modal">
-               <input type="file">
-               <button class="config_modal_btn">Salvar</button>
-          </div>
           <div class="perfil_header">
-               <h1>Perfil de usuário</h1>
                <div class="perfil_header_info">
-                    <div class="perfil_header_info_img">
-                         <img src="../../public/img/imagens/default-icon.jpg" alt="" id="perfil_image">
-                    </div>
+                    <a class="voltar" href="/feed">Voltar ao feed</a>
                     <div class="perfil_header_infos">
-                         <h2 class="perfil_infos_user" id="infos_user">
-                         </h2>
+                         <div class="perfil_header_info_img">
+                              <img src="../../public/img/imagens/default-icon.jpg" alt="" id="perfil_image">
+                         </div>
+                         <h2 class="perfil_infos_user" id="infos_user"></h2>
                          <ul class="perfil_infos_dados">
                               <li>
                                    <p id="qnt_likes">0</p>
@@ -24,6 +19,7 @@
                               </li>
                          </ul>
                     </div>
+                    <h1 class="perfil_posts_apresentacao">Posts de <span id="name_user"></span></h1>
                     <div class="perfil_posts" id="perfil_posts">
 
                     </div>
@@ -32,9 +28,13 @@
           <script>
                const user = JSON.parse(localStorage.getItem('userInfos'));
                const data = [];
+               const nm_us = document.getElementById('name_user');
+
+               const url_query = new URLSearchParams(window.location.search);
+               const id = url_query.get('id');
 
                async function getUserInfos() {
-                    const response = await fetch(`http://localhost:3000/user/search?id=${user.Id_user}`, {
+                    const response = await fetch(`http://localhost:3000/user/search?${url_query}`, {
                          method: 'GET',
                          headers: {
                               'Content-Type': 'application/json'
@@ -47,12 +47,14 @@
                function renderPost() {
                     const perfil_posts = document.querySelector('.perfil_posts');
 
+                    const userData = data[0].user;
+
                     for (let post of data[0].posts) {
                          const post_div = document.createElement('div');
                          post_div.classList.add(`perfil_post-${post.Id_post}`);
 
-                         const perfil_posts = document.getElementById('perfil_posts');
-
+                         const perfil_posts = document.getElementById('perfil_posts')
+                         const nome_do_usuario = userData.User
 
                          function hashtag() {
                               if (post.Conteudo_Texto.includes('#')) {
@@ -79,7 +81,7 @@
                               <div class="post_header">
                                    <div class="post_header-box">
                                         <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
-                                        <h1 class="post_header-title">${user.User}</h1>
+                                        <h1 class="post_header-title">${nome_do_usuario}</h1>
                                    </div>
                                    <div class="post_header-boxData">
                                         <h2 class="post_header-data">${new Date(post.Data_post).toLocaleDateString('pt-BR')}</h2>
@@ -89,6 +91,13 @@
                               <div class="post_body">
                                    <p class="post_text"></p>
                                    ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img" src="${post.contentImage}"></div>` : ''}
+                              </div>
+                              <div class="post_footer">
+                                   <div class="post_footer-box">
+                                             <span class="post_footer-likesCount">${post.Likes}</span>
+                                             <button class="post_footer-like" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
+                                   </div>
+                           
                               </div>
                          `;
 
@@ -103,13 +112,13 @@
                window.addEventListener('load', async () => {
                     await getUserInfos();
 
-                    console.log(data[0].user);
-                    console.log(data[0].posts);
-
                     let totalLikes = 0;
+
                     for (let post of data[0].posts) {
                          totalLikes += post.Likes;
                     }
+
+                    nm_us.innerHTML = data[0].user.User;
 
                     const infos_user = document.getElementById('infos_user');
                     infos_user.innerHTML = `@${data[0].user.User}`;
@@ -117,11 +126,19 @@
                     const qnt_posts = document.getElementById('qnt_posts');
                     qnt_posts.innerHTML = data[0].posts.length;
 
+                    function formatacaoLikes(totalLikes) {
+                         if (totalLikes >= 1000000) {
+                              return (totalLikes / 1000000).toFixed(1) + 'M';
+                         } else if (totalLikes >= 1000) {
+                              return (totalLikes / 1000).toFixed(0) + 'K';
+                         } else {
+                              return totalLikes.toString();
+                         }
+                    }
+
                     const qnt_likes = document.getElementById('qnt_likes');
-                    qnt_likes.innerHTML = totalLikes;
-
+                    qnt_likes.innerHTML = formatacaoLikes(totalLikes);
                     renderPost();
-
                });
 
           </script>

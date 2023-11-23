@@ -143,7 +143,8 @@ class User {
 
                const selectPostsQuery = `
                   select
-                       *
+                       *,
+                       Conteudo_Imagem as contentImage
                   from
                        post
                   where
@@ -153,7 +154,12 @@ class User {
                const posts = await sql.query(selectPostsQuery, [userId]);
                console.log("Posts do usuário lidos com sucesso!");
 
-               res.json({ user: result[0], posts });
+               const formattedPosts = posts.map((post: any) => ({
+                    ...post,
+                    contentImage: post.Conteudo_Imagem ? post.Conteudo_Imagem.toString() : null
+               }));
+
+               res.json({ user: result[0], posts: formattedPosts });
           });
      }
 

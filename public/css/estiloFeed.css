@@ -195,7 +195,10 @@
      font-size: 13px;
      font-weight: 600;
      word-break: break-all;
+     text-decoration: none;
+     color: black;
 }
+
 
 .post_header-data {
      width: 90%;
@@ -382,6 +385,9 @@
      font-size: 12px;
      color: #515151;
 }
+
+
+
 
 /* Responsividade Celular */
 
