@@ -41,6 +41,23 @@
           const chooseImage = document.getElementById('choose-image');
           const imagemChoosed = document.getElementById('imagem-choosed');
 
+
+          imagemChoosed.addEventListener('click', (e) => {
+               const img = e.target;
+               img.classList.toggle('imagem-choosed--active');
+               imagemChoosed.innerHTML = '';
+          });
+
+          function formatacaoLikes(totalLikes) {
+               if (totalLikes >= 1000000) {
+                    return (totalLikes / 1000000).toFixed(1) + 'M';
+               } else if (totalLikes >= 1000) {
+                    return (totalLikes / 1000).toFixed(0) + 'K';
+               } else {
+                    return totalLikes.toString();
+               }
+          }
+
           chooseImage.addEventListener('change', (e) => {
                const file = e.target.files[0];
                const reader = new FileReader();
@@ -128,8 +145,6 @@
                     const feedBody = document.getElementById('feed-body');
                     await Promise.all(posts.map(async (post) => {
                          if (!renderizados.has(post.id)) {
-                              console.log(post)
-                              console.log(isCarregado)
                               renderizados.add(post.id);
                               let comentarios = [];
                               try {
@@ -236,7 +251,7 @@
                                              ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img" src="${post.contentImage}"></div>` : ''}
                                              </div>
                                              <div class="post_footer">
-                                             <span class="post_footer-likesCount">${post.likes}</span>
+                                             <span class="post_footer-likesCount">${formatacaoLikes(post.likes)}</span>
                                              <button class="post_footer-like" onclick="likePost(${post.id})" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
                                              <span class="post_footer-likesCount">${comentarios.length}</span>
                                              <label class="post_footer-like" for="post_comments__input">💬</label>

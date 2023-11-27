@@ -143,11 +143,17 @@
      display: flex;
      justify-content: center;
      align-items: center;
+     transition: all 500ms ease-out;
 }
 
 .imagem-choosed img {
      max-width: 150px;
      max-height: 150px;
+}
+
+.imagem-choosed:hover {
+     filter: brightness(50%) blur(1px);
+     transition: all 500ms ease-out;
 }
 
 .post {

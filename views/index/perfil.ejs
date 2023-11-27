@@ -46,6 +46,17 @@
                     data.push(res);
                }
 
+               function formatacaoLikes(totalLikes) {
+                    if (totalLikes >= 1000000) {
+                         return (totalLikes / 1000000).toFixed(1) + 'M';
+                    } else if (totalLikes >= 1000) {
+                         return (totalLikes / 1000).toFixed(0) + 'K';
+                    } else {
+                         return totalLikes.toString();
+                    }
+               }
+
+
                function renderPost() {
                     const perfil_posts = document.querySelector('.perfil_posts');
 
@@ -60,7 +71,7 @@
 
                          function hashtag() {
                               if (post.Conteudo_Texto.includes('#')) {
-                                   const postTextElement = postElement.querySelector('.post_text');
+                                   const postTextElement = post_div.querySelector('.post_text');
                                    const palavra = post.Conteudo_Texto.split(' ');
                                    const hashtagClass = 'post_text--hashtag';
                                    palavra.forEach((word) => {
@@ -79,7 +90,10 @@
                               }
                          }
 
+                         let especialPost = post.isEspecial == 1 ? '<h2 class="post_header-anuncio">Anúncio</h2>' : '';
+
                          post_div.innerHTML = `
+                         ${especialPost}
                               <div class="post_header">
                                    <div class="post_header-box">
                                         <img class="post_header-icon" src="../../public/img/imagens/default-icon.jpg">
@@ -96,7 +110,7 @@
                               </div>
                               <div class="post_footer">
                                    <div class="post_footer-box">
-                                             <span class="post_footer-likesCount">${post.Likes}</span>
+                                             <span class="post_footer-likesCount">${formatacaoLikes(post.Likes)}</span>
                                              <button class="post_footer-like" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
                                    </div>
                            
@@ -105,7 +119,6 @@
 
 
                          perfil_posts.appendChild(post_div);
-
                          hashtag();
                     }
 
@@ -128,15 +141,7 @@
                     const qnt_posts = document.getElementById('qnt_posts');
                     qnt_posts.innerHTML = data[0].posts.length;
 
-                    function formatacaoLikes(totalLikes) {
-                         if (totalLikes >= 1000000) {
-                              return (totalLikes / 1000000).toFixed(1) + 'M';
-                         } else if (totalLikes >= 1000) {
-                              return (totalLikes / 1000).toFixed(0) + 'K';
-                         } else {
-                              return totalLikes.toString();
-                         }
-                    }
+
 
                     const qnt_likes = document.getElementById('qnt_likes');
                     qnt_likes.innerHTML = formatacaoLikes(totalLikes);
