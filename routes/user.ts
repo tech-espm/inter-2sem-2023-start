@@ -185,13 +185,14 @@ class User {
 
           function sorteadorDeNome() {
                const nome = lista_nomes[Math.floor(Math.random() * lista_nomes.length)];
-               let nomeFormatado = nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, "_").toLowerCase();
-               if (nomeFormatado.length > 25) {
+               let nomeFormatado = nome?.normalize("NFD")?.replace(/[\u0300-\u036f]/g, "")?.replace(/ /g, "_")?.toLowerCase();
+               if (nomeFormatado && nomeFormatado.length > 25) {
                     nomeFormatado = nomeFormatado.substring(0, 25);
                }
                const numeroRandom = Math.floor(Math.random() * 10000);
                return nomeFormatado + numeroRandom;
           }
+
           const nome = sorteadorDeNome()
           console.log(sorteadorDeNome())
           console.log(lista_nomes)
