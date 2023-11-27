@@ -1,88 +1,122 @@
-<header class="header">
-     <div class="header__content">
-          <h1 class="header__title">BeDev</h1>
-          <p class="header__subtitle">A social for devs</p>
-     </div>
-</header>
-<section class="intro">
-     <div class="intro__content">
-          <h2 class="intro__title">A social midia for developers</h2>
-          <h1 class="intro__heading">Fun with photos</h1>
-          <p class="intro__text">
-               Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem
-               sendo utilizado desde o
-               século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer
-               um livro de modelos
-               de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração
-               eletrônica, permanecendo
-               essencialmente inalterado.
-          </p>
-          <button class="intro__button" onclick="window.location.href='/login'">Conectar</button>
-     </div>
-     <div class="intro__image">
-          <img src="/public/img/imagens/celular.svg" alt="Celular" loading="lazy" />
-     </div>
-</section>
-<section class="diferencial">
-     <div class="diferencial__content">
-          <h1 class="diferencial__title">Como usar o BeDev</h1>
-          <p class="diferencial__text">Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore</p>
-          <div class="diferencial__box">
-
+<div class="header_e_intro">
+     <header class="header">
+          <div class="header__content">
+               <h1 class="header__title">BeDev</h1>
+               <p class="header__subtitle">A social for devs</p>
           </div>
-          <p class="diferencial__text">Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore</p>
-          <button class="diferencial__button">Comece agora</button>
+     </header>
+     <section class="intro">
+          <div class="intro__content">
+               <h2 class="intro__title">Uma rede social para programadores</h2>
+               <h1 class="intro__heading">Onde Códigos Viram Histórias</h1>
+               <p class="intro__text">
+                    Conecte-se, aprenda, compartilhe desafios e celebre conquistas com uma comunidade apaixonada por programação. Desenvolva não apenas softwares, mas também conexões significativas enquanto codifica sua jornada na BeDev.
+               </p>
+               <button class="intro__button" onclick="window.location.href='/login'">Conectar</button>
+          </div>
+          <div class="intro__image">
+               <img src="/public/img/imagens/celular2.svg" class="intro_img_celular" alt="Celular" loading="lazy" />
+          </div>
+     </section>
+</div>
+<section class="diferencial">
+     <!-- <div class="diferencial__content"> -->
+     <h1 class="diferencial__title">Como usar o BeDev</h1>
+     <p class="diferencial__text">Entre no seu feed e, no espaço acima da página, escreva dentro da caixinha o que você deseja compartilhar e anexe a imagem que desejar!</p>
+     <div class="diferencial__box">
+          <img src="/public/img/imagens/feed.jpeg" alt="Feed da rede social BeDev" class="diferencial__image">
      </div>
+     <p class="diferencial__text">Depois disso, clique em "Criar post" e veja o que os outros tem a dizer do seu post!</p>
+     <button class="diferencial__button">Comece agora</button>
+     <!-- </div> -->
 </section>
 <section class="beneficios">
      <div class="beneficios__content">
-          <h1 class="beneficios__title">Para programar a felicidade do programador</h1>
+          <h1 class="beneficios__title__1">Para <span class="beneficios__especial">codificar</span> a felicidade do
+               <span class="beneficios__especial">programador</span>
+          </h1>
           <div class="beneficios__cards">
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/criativo.png" alt="Emoji sorrindo" class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Explore o lado criativo</h3>
+                              <p class="card__text">Experimente, inove e divirta-se.</p>
+                         </div>
+                    </div>
                </div>
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/comunidade.png" alt="Tres pessoas e um balão de fala"
+                              class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Conecte-se com a comunidade</h3>
+                              <p class="card__text">Conecte-se, compartilhe e construa amizades.</p>
+                         </div>
+                    </div>
                </div>
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/desabafo.png" alt="Megafone" class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Compartilhe suas experiências</h3>
+                              <p class="card__text">Espaço seguro para desafios e conquistas.</p>
+                         </div>
+                    </div>
                </div>
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
-               </div>
-               <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/aprender.png"
+                              alt="Cabeça de pessoa com desenhos de engrenagens dentro" class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Aprenda e entenda mais</h3>
+                              <p class="card__text">Insights valiosos para aprimorar habilidades.</p>
+                         </div>
+                    </div>
                </div>
           </div>
      </div>
-     <div class="beneficios__content right">
-          <h1 class="beneficios__title">Tire um descanso do trabalho</h1>
+     <div class="beneficios__content">
+          <h1 class="beneficios__title__2">Tire um descanso do <span class="beneficios__especial">trabalho</span></h1>
 
-          <div class="beneficios__cards right">
+          <div class="beneficios__cards">
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/confete.png" alt="Emoji sorrindo" class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Descompressão</h3>
+                              <p class="card__text"> Liberte-se do estresse com a BeDev.</p>
+                         </div>
+                    </div>
                </div>
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/diversao.png" alt="Tres pessoas e um balão de fala"
+                              class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Inspiração</h3>
+                              <p class="card__text"> Estímulos para novas ideias e perspectivas.</p>
+                         </div>
+                    </div>
                </div>
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/exploracao.png" alt="Megafone" class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Exploração</h3>
+                              <p class="card__text">Descubra novos horizontes.</p>
+                         </div>
+                    </div>
                </div>
                <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
-               </div>
-               <div class="beneficios__card">
-                    <h3 class="card__title">For fun</h3>
-                    <p class="card__text">Make a post to brighten up your working day</p>
+                    <div class="beneficios__card__content">
+                         <img src="/public/img/imagens/social.png"
+                              alt="Cabeça de pessoa com desenhos de engrenagens dentro" class="card__image">
+                         <div class="beneficios__card__texto">
+                              <h3 class="card__title">Socialização</h3>
+                              <p class="card__text">Interação e compartilhamento com amigos.</p>
+                         </div>
+                    </div>
                </div>
           </div>
      </div>

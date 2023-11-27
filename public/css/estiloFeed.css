@@ -79,8 +79,7 @@
 }
 
 .icon {
-     width: 80px;
-     height: 80px;
+     width: 60%;
      border-radius: 100%;
      object-fit: cover;
      object-position: center;

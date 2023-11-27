@@ -8,11 +8,26 @@
 
 /* Landing */
 
+.header_e_intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 100vh;
+}
+
 .header {
     display: flex;
     justify-content: center;
     text-align: center;
+
+    align-items: center;
+    align-self: center;
+
     margin: 10px 0;
+    min-height: 10%;
+    max-height: 100%;
+    width: 100%;
 }
 
 .header__content {
@@ -31,22 +46,38 @@
 
 .intro {
     display: flex;
-}
+    flex-direction: row;
+    justify-content: baseline;
 
-.intro__image {
-    width: 60%;
-    display: flex;
-    justify-content: end;
+    box-sizing: content-box;
+    max-height: 90%;
 }
 
 .intro__content {
     /* Conteiner com o texto */
     display: flex;
     flex-direction: column;
+    justify-content: center;
+
     gap: 2px;
-    padding: 2rem;
-    width: 40%;
-    margin: 120px 0;
+    padding: 2rem 2rem;
+    margin: 0rem 0;
+
+    width: 50%;
+    max-height: 100%;
+}
+
+.intro__image {
+    width: 50%;
+    max-height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.intro_img_celular {
+    max-width: 60%;
 }
 
 .intro__title {
@@ -58,6 +89,7 @@
 .intro__heading {
     font-size: 3rem;
     margin: 0;
+    line-height: 3.2rem;
 }
 
 .intro__text {
@@ -82,32 +114,50 @@
 
 .diferencial {
     background-color: #000000;
-    padding: 6rem;
-    margin: 0;
+    padding: 3rem;
+    margin: 0 auto;
+
     display: flex;
+    flex-direction: column;
     justify-content: center;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    text-align: center;
+    color: white;
 }
 
 .diferencial__content {
-    text-align: center;
-    width: 50%;
-    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
 .diferencial__title {
     font-size: 2.5rem;
-    margin: 0;
+    margin: .5rem 0;
 }
 
 .diferencial__text {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0;
+
+    max-width: 75%;
 }
 
 .diferencial__box {
-    background-color: #fff;
-    padding: 15rem;
     margin: 20px 0;
+
+    max-width: 75%;
+}
+
+.diferencial__image {
+    width: 60%;
+    border: dashed 1px white;
 }
 
 .diferencial__button {
@@ -119,7 +169,7 @@
     color: #000000;
     font-size: 1rem;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
 }
 
 .diferencial__button:hover {
@@ -132,6 +182,7 @@
     gap: 50px;
     padding: 4rem;
     height: 100vh;
+    width: 100%;
 }
 
 .beneficios__content {
@@ -139,31 +190,47 @@
     flex-direction: column;
 }
 
-.beneficios__content.right {
+.beneficios__content {
     width: 100%;
     flex-direction: column;
-    justify-content: end;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
 }
 
-.beneficios__title {
+.beneficios__title__1,
+.beneficios__title__2 {
+    text-align: left;
     font-size: 2.2rem;
     margin: 20px 0;
+
+    align-self: baseline;
+}
+
+.beneficios__title__2 {
+    align-self: flex-end;
+}
+
+.beneficios__especial {
+    font-style: italic;
 }
 
 .beneficios__cards {
     display: flex;
     gap: 10px;
-}
-
-.beneficios__cards.right {
-    display: flex;
-    justify-content: end;
+    width: 100%;
 }
 
 .beneficios__card {
     padding: .2rem;
-    width: 10%;
+    width: 25%;
+}
+
+.beneficios__card__content {
+    width: 75%;
+}
+
+.card__image {
+    width: 15%;
 }
 
 .card__title {
@@ -172,4 +239,136 @@
 
 .card__text {
     margin: 0;
+    font-size: small;
+}
+
+@media (max-width: 768px) {
+    .header__title {
+        font-size: x-large;
+    }
+
+    .intro {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .intro__content {
+        width: 100%;
+        height: max-content;
+
+        text-align: center;
+
+        padding: 1rem 1.5rem;
+    }
+
+    .intro__heading {
+        line-height: 2.5rem;
+    }
+
+    .intro__text {
+        text-align: justify;
+        margin: 15px 0;
+        font-size: small;
+    }
+
+    .intro__button {
+        width: 50%;
+    }
+
+    .intro__image {
+        width: 100%;
+        max-height: 50%;
+
+        padding: .5rem;
+    }
+
+    .intro_img_celular {
+        width: 30%;
+
+        max-width: max-content;
+        min-width: 5%;
+    }
+
+    .diferencial__title {
+        font-size: 1.5rem;
+        padding-bottom: .5rem;
+    }
+
+    .diferencial__box {
+        max-width: 100%;
+    }
+
+    .diferencial__image {
+        width: 80%;
+        border: dashed 1px white;
+    }
+
+    .diferencial__text {
+        font-size: .8rem;
+    }
+
+    .diferencial__button {
+        width: 65%;
+    }
+
+    .beneficios {
+        height: max-content;
+        padding: 1.2rem;
+    }
+
+    .beneficios__title__1, .beneficios__title__2 {
+        text-align: center;
+    }
+
+    .beneficios__cards {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .beneficios__card {
+        width: 90%;
+
+    }
+
+    .beneficios__card__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card__image {
+        width: 10%;
+    }
+
+    .beneficios__card__texto {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        padding-bottom: 1rem;
+        text-align: center;
+
+        align-items: center;
+        align-self: center;
+    }
+
+    .card__title {
+        text-align: center;
+        width: fit-content;
+    }
+
+    .card__text {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 350px) {
+    .intro {
+        justify-content: center;
+    }
+
+    .intro_img_celular {
+        display: none;
+    }
 }

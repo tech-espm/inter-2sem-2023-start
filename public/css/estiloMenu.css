@@ -1,0 +1,65 @@
+#menu_content {
+    display: none;
+    position: absolute;
+
+    z-index: 10;
+
+    background-color: black;
+    color: white;
+    height: 100vh;
+    width: max-content;
+
+    padding: 1rem 2rem;
+
+    flex-direction: column;
+    justify-content: baseline;
+    text-align: left;
+}
+
+#menu_content > hr {
+    border: 0px;
+    border-top: 1px solid rgb(255, 255, 255);
+
+    margin: 2.5rem 0;
+}
+
+.beDev > h2, .conta_beDev > h2 {
+    text-transform: uppercase;
+    padding-bottom: 1.65rem;
+}
+
+.beDev > a, .conta_beDev > a {
+    color: white;
+    text-decoration: none;
+    margin: 0;
+}
+
+.beDev > a > p, .conta_beDev > a > p {
+    font-size: medium;
+    font-weight: bolder;
+    text-align: left;
+
+    padding: 0rem 4rem 0rem 0rem;
+
+    margin-bottom: 1rem;
+}
+
+.beDev > a > p:hover, .conta_beDev > a > p:hover {
+    text-decoration: underline;
+    scale: 1.1;
+}
+
+@media only screen and (max-width: 768px) {
+    #menu_content {
+        display: none;
+        width: 100%;
+        height: max-content;
+
+        justify-content: center;
+    }
+
+    .beDev > a > p, .conta_beDev > a > p {
+        padding: 0rem;
+        text-align: center;
+    }
+}
