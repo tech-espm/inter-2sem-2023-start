@@ -1,175 +1,175 @@
 <%- include("../comum/barra.ejs") %>
-<%- include("../comum/menu.ejs") %>
+     <%- include("../comum/menu.ejs") %>
 
-     <div class="feed_page">
-          <div class="feed">
-               <div class="feed_box">
-                    <div class="feed_box-header">
-                         <img src="../../public/img/imagens/default-icon.jpg" alt="foto" class="icon" />
-                         <h1 class="feed_box-title" id="userName"></h1>
-                    </div>
-                    <div class="feed_box-body">
-                         <div class="feed_box-textarea">
-                              <textarea name="post" id="post" cols="30" rows="10" value="" maxlength="350"
-                                   placeholder="No que você está pensando?"></textarea>
+          <div class="feed_page">
+               <div class="feed">
+                    <div class="feed_box">
+                         <div class="feed_box-header">
+                              <img src="../../public/img/imagens/default-icon.jpg" alt="foto" class="icon" />
+                              <h1 class="feed_box-title" id="userName"></h1>
                          </div>
-                         <div class="imagem-preview">
-                              <ul class="imagem-list">
-                                   <li class="imagem-choosed" id="imagem-choosed"></li>
-                              </ul>
-                         </div>
-                         <div class="feed_box-buttons">
-                              <div class="feed_box-buttons--functions">
-                                   <label class="feed-button label" for="choose-image">📁</label>
-                                   <input type="file" id="choose-image"
-                                        accept="image/png, image/jpeg, image/webp, image/gif" />
+                         <div class="feed_box-body">
+                              <div class="feed_box-textarea">
+                                   <textarea name="post" id="post" cols="30" rows="10" value="" maxlength="350"
+                                        placeholder="No que você está pensando?"></textarea>
                               </div>
-                              <div class="feed_box-buttons--criar">
-                                   <button class="feed-button" id="create-post">Criar post</button>
+                              <div class="imagem-preview">
+                                   <ul class="imagem-list">
+                                        <li class="imagem-choosed" id="imagem-choosed"></li>
+                                   </ul>
+                              </div>
+                              <div class="feed_box-buttons">
+                                   <div class="feed_box-buttons--functions">
+                                        <label class="feed-button label" for="choose-image">📁</label>
+                                        <input type="file" id="choose-image"
+                                             accept="image/png, image/jpeg, image/webp, image/gif" />
+                                   </div>
+                                   <div class="feed_box-buttons--criar">
+                                        <button class="feed-button" id="create-post">Criar post</button>
+                                   </div>
                               </div>
                          </div>
                     </div>
-               </div>
-               <div class="feed_body" id="feed-body">
+                    <div class="feed_body" id="feed-body">
+                    </div>
                </div>
           </div>
-     </div>
-     <script>
-          const userInfos = JSON.parse(localStorage.getItem('userInfos'));
-          const userName = document.getElementById('userName');
-          userName.innerHTML = userInfos.User;
-          const chooseImage = document.getElementById('choose-image');
-          const imagemChoosed = document.getElementById('imagem-choosed');
+          <script>
+               const userInfos = JSON.parse(localStorage.getItem('userInfos'));
+               const userName = document.getElementById('userName');
+               userName.innerHTML = userInfos.User;
+               const chooseImage = document.getElementById('choose-image');
+               const imagemChoosed = document.getElementById('imagem-choosed');
 
 
-          imagemChoosed.addEventListener('click', (e) => {
-               const img = e.target;
-               img.classList.toggle('imagem-choosed--active');
-               imagemChoosed.innerHTML = '';
-          });
-
-          function formatacaoLikes(totalLikes) {
-               if (totalLikes >= 1000000) {
-                    return (totalLikes / 1000000).toFixed(1) + 'M';
-               } else if (totalLikes >= 1000) {
-                    return (totalLikes / 1000).toFixed(0) + 'K';
-               } else {
-                    return totalLikes.toString();
-               }
-          }
-
-          chooseImage.addEventListener('change', (e) => {
-               const file = e.target.files[0];
-               const reader = new FileReader();
-
-               reader.onload = () => {
-                    const img = document.createElement('img');
-                    img.src = reader.result;
+               imagemChoosed.addEventListener('click', (e) => {
+                    const img = e.target;
+                    img.classList.toggle('imagem-choosed--active');
                     imagemChoosed.innerHTML = '';
-                    imagemChoosed.appendChild(img);
-               };
+               });
 
-               reader.readAsDataURL(file);
-          });
-
-          const createPostButton = document.getElementById('create-post');
-
-          createPostButton.addEventListener('click', async (e) => {
-               const post = document.getElementById('post').value;
-               const image = document.getElementById('choose-image').files[0];
-               const imageSize = image ? image.size : 0;
-
-               async function convertToBase64(image) {
-                    return new Promise((resolve, reject) => {
-                         const reader = new FileReader();
-                         reader.onload = () => {
-                              resolve(reader.result);
-                         };
-                         reader.onerror = reject;
-                         reader.readAsDataURL(image);
-                    });
+               function formatacaoLikes(totalLikes) {
+                    if (totalLikes >= 1000000) {
+                         return (totalLikes / 1000000).toFixed(1) + 'M';
+                    } else if (totalLikes >= 1000) {
+                         return (totalLikes / 1000).toFixed(0) + 'K';
+                    } else {
+                         return totalLikes.toString();
+                    }
                }
 
-               const compressedBase64Image = await convertToBase64(image)
-                    .then((result) => {
-                         const img = new Image();
-                         img.src = result;
+               chooseImage.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
 
-                         const canvas = document.createElement('canvas');
-                         const ctx = canvas.getContext('2d');
-                         canvas.width = img.width;
-                         canvas.height = img.height;
-                         ctx.drawImage(img, 0, 0, img.width, img.height);
+                    reader.onload = () => {
+                         const img = document.createElement('img');
+                         img.src = reader.result;
+                         imagemChoosed.innerHTML = '';
+                         imagemChoosed.appendChild(img);
+                    };
 
-                         const tamanhoMaximo = 4 * 1024 * 1024;
-                         const resolucao = imageSize > tamanhoMaximo ? 0.8 : 1;
+                    reader.readAsDataURL(file);
+               });
 
-                         return canvas.toDataURL('image/webp', resolucao);
+               const createPostButton = document.getElementById('create-post');
+
+               createPostButton.addEventListener('click', async (e) => {
+                    const post = document.getElementById('post').value;
+                    const image = document.getElementById('choose-image').files[0];
+                    const imageSize = image ? image.size : 0;
+
+                    async function convertToBase64(image) {
+                         return new Promise((resolve, reject) => {
+                              const reader = new FileReader();
+                              reader.onload = () => {
+                                   resolve(reader.result);
+                              };
+                              reader.onerror = reject;
+                              reader.readAsDataURL(image);
+                         });
+                    }
+
+                    const compressedBase64Image = await convertToBase64(image)
+                         .then((result) => {
+                              const img = new Image();
+                              img.src = result;
+
+                              const canvas = document.createElement('canvas');
+                              const ctx = canvas.getContext('2d');
+                              canvas.width = img.width;
+                              canvas.height = img.height;
+                              ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                              const tamanhoMaximo = 4 * 1024 * 1024;
+                              const resolucao = imageSize > tamanhoMaximo ? 0.8 : 1;
+
+                              return canvas.toDataURL('image/webp', resolucao);
+                         })
+                         .catch((err) => {
+                              console.log(err);
+                         });
+
+                    const postContent = {
+                         contentText: post,
+                         contentImage: compressedBase64Image,
+                         isImage: image ? 1 : 0,
+                         userId: userInfos.Id_user,
+                    };
+
+                    fetch('http://localhost:3000/post/create', {
+                         method: 'POST',
+                         headers: {
+                              'Content-Type': 'application/json',
+                         },
+                         body: JSON.stringify(postContent),
                     })
-                    .catch((err) => {
-                         console.log(err);
-                    });
+                         .then((response) => {
+                              window.location.reload();
+                         })
+                         .catch((err) => {
+                              console.log(err);
+                         });
 
-               const postContent = {
-                    contentText: post,
-                    contentImage: compressedBase64Image,
-                    isImage: image ? 1 : 0,
-                    userId: userInfos.Id_user,
-               };
+               });
 
-               fetch('http://localhost:3000/post/create', {
-                    method: 'POST',
-                    headers: {
-                         'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(postContent),
-               })
-                    .then((response) => {
-                         window.location.reload();
-                    })
-                    .catch((err) => {
-                         console.log(err);
-                    });
+               const feedBody = document.querySelector('.feed_body');
+               const renderizados = new Set();
+               let isCarregado = false;
 
-          });
+               async function loadPosts() {
+                    isCarregado = true;
+                    try {
+                         const response = await fetch(`http://localhost:3000/post/getAllPosts`);
+                         const posts = await response.json();
+                         const feedBody = document.getElementById('feed-body');
+                         await Promise.all(posts.map(async (post) => {
+                              if (!renderizados.has(post.id)) {
+                                   renderizados.add(post.id);
+                                   let comentarios = [];
+                                   try {
+                                        const commentsResponse = await fetch(`http://localhost:3000/post/getComments`, {
+                                             method: 'POST',
+                                             headers: {
+                                                  'Content-Type': 'application/json',
+                                             },
+                                             body: JSON.stringify({ postId: post.id }),
+                                        });
 
-          const feedBody = document.querySelector('.feed_body');
-          const renderizados = new Set();
-          let isCarregado = false;
+                                        comentarios = await commentsResponse.json();
+                                   } catch (err) {
+                                        console.error(err);
+                                   }
 
-          async function loadPosts() {
-               isCarregado = true;
-               try {
-                    const response = await fetch(`http://localhost:3000/post/getAllPosts`);
-                    const posts = await response.json();
-                    const feedBody = document.getElementById('feed-body');
-                    await Promise.all(posts.map(async (post) => {
-                         if (!renderizados.has(post.id)) {
-                              renderizados.add(post.id);
-                              let comentarios = [];
-                              try {
-                                   const commentsResponse = await fetch(`http://localhost:3000/post/getComments`, {
-                                        method: 'POST',
-                                        headers: {
-                                             'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({ postId: post.id }),
-                                   });
+                                   function renderComments(comments) {
+                                        const commentsContainer = document.createElement('div');
+                                        commentsContainer.classList.add('post_comments__container');
 
-                                   comentarios = await commentsResponse.json();
-                              } catch (err) {
-                                   console.error(err);
-                              }
-
-                              function renderComments(comments) {
-                                   const commentsContainer = document.createElement('div');
-                                   commentsContainer.classList.add('post_comments__container');
-
-                                   if (comments.length > 0) {
-                                        comments.forEach((comment) => {
-                                             const commentElement = document.createElement('div');
-                                             commentElement.classList.add('post_comments__box');
-                                             commentElement.innerHTML = `
+                                        if (comments.length > 0) {
+                                             comments.forEach((comment) => {
+                                                  const commentElement = document.createElement('div');
+                                                  commentElement.classList.add('post_comments__box');
+                                                  commentElement.innerHTML = `
                                                        <div class="post_comments__header">
                                                             <img class="post_comments__icon" src="../../public/img/imagens/default-icon.jpg">
                                                             <h1 class="post_comments__title">${comment.userName}</h1>
@@ -178,63 +178,63 @@
                                                             <p class="post_comments__text">${comment.comentarios}</p>     
                                                        </div>
                                                   `;
-                                             commentsContainer.appendChild(commentElement);
-                                        });
-                                   } else {
-                                        const noCommentsElement = document.createElement('p');
-                                        noCommentsElement.textContent = 'Sem comentários';
-                                        noCommentsElement.classList.add('post_comments__noComments');
-                                        commentsContainer.appendChild(noCommentsElement);
-                                   }
-
-                                   const postCommentsElement = document.createElement('div');
-                                   postCommentsElement.classList.add('post_comments');
-                                   postCommentsElement.appendChild(commentsContainer);
-
-                                   const commentInputId = `comment-${post.id}`;
-                                   const commentInput = document.createElement('input');
-                                   commentInput.maxLength = 350;
-                                   commentInput.classList.add('post_comments__input');
-                                   commentInput.placeholder = `Comente sua opinião sobre o post de ${post.userName}`;
-                                   commentInput.id = commentInputId;
-                                   commentInput.addEventListener('keydown', (e) => {
-                                        if (e.key === 'Enter') {
-                                             commentPost(post.id, commentInput.value);
+                                                  commentsContainer.appendChild(commentElement);
+                                             });
+                                        } else {
+                                             const noCommentsElement = document.createElement('p');
+                                             noCommentsElement.textContent = 'Sem comentários';
+                                             noCommentsElement.classList.add('post_comments__noComments');
+                                             commentsContainer.appendChild(noCommentsElement);
                                         }
-                                   });
 
-                                   return postCommentsElement;
-                              }
+                                        const postCommentsElement = document.createElement('div');
+                                        postCommentsElement.classList.add('post_comments');
+                                        postCommentsElement.appendChild(commentsContainer);
 
-                              const postElement = document.createElement('div');
-                              postElement.classList.add('post');
-                              postElement.id = `post-${post.id}`;
-
-                              function hashtag() {
-                                   if (post.contentText.includes('#')) {
-                                        const postTextElement = postElement.querySelector('.post_text');
-                                        const palavra = post.contentText.split(' ');
-                                        const hashtagClass = 'post_text--hashtag';
-                                        palavra.forEach((word) => {
-                                             if (word.startsWith('#') && word.length > 1) {
-                                                  const spanElement = document.createElement('span');
-                                                  spanElement.classList.add(hashtagClass);
-                                                  spanElement.textContent = ' ' + word;
-                                                  postTextElement.appendChild(spanElement);
-                                             } else {
-                                                  postTextElement.appendChild(document.createTextNode(word + ' '));
+                                        const commentInputId = `comment-${post.id}`;
+                                        const commentInput = document.createElement('input');
+                                        commentInput.maxLength = 350;
+                                        commentInput.classList.add('post_comments__input');
+                                        commentInput.placeholder = `Comente sua opinião sobre o post de ${post.userName}`;
+                                        commentInput.id = commentInputId;
+                                        commentInput.addEventListener('keydown', (e) => {
+                                             if (e.key === 'Enter') {
+                                                  commentPost(post.id, commentInput.value);
                                              }
                                         });
-                                   } else {
-                                        const postTextElement = postElement.querySelector('.post_text');
-                                        postTextElement.textContent = post.contentText;
+
+                                        return postCommentsElement;
                                    }
-                              }
+
+                                   const postElement = document.createElement('div');
+                                   postElement.classList.add('post');
+                                   postElement.id = `post-${post.id}`;
+
+                                   function hashtag() {
+                                        if (post.contentText.includes('#')) {
+                                             const postTextElement = postElement.querySelector('.post_text');
+                                             const palavra = post.contentText.split(' ');
+                                             const hashtagClass = 'post_text--hashtag';
+                                             palavra.forEach((word) => {
+                                                  if (word.startsWith('#') && word.length > 1) {
+                                                       const spanElement = document.createElement('span');
+                                                       spanElement.classList.add(hashtagClass);
+                                                       spanElement.textContent = ' ' + word;
+                                                       postTextElement.appendChild(spanElement);
+                                                  } else {
+                                                       postTextElement.appendChild(document.createTextNode(word + ' '));
+                                                  }
+                                             });
+                                        } else {
+                                             const postTextElement = postElement.querySelector('.post_text');
+                                             postTextElement.textContent = post.contentText;
+                                        }
+                                   }
 
 
-                              let especialPost = post.specialPost == 1 ? '<h2 class="post_header-anuncio">Anúncio</h2>' : '';
+                                   let especialPost = post.specialPost == 1 ? '<h2 class="post_header-anuncio">Anúncio</h2>' : '';
 
-                              const postHTML = `
+                                   const postHTML = `
                                              ${especialPost}
                                              <div class="post_header">
                                              <div class="post_header-box">
@@ -248,114 +248,114 @@
                                              </div>
                                              <div class="post_body">
                                              <p class="post_text"></p>
-                                             ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img" src="${post.contentImage}"></div>` : ''}
+                                                  ${post.isImage == 1 && post.contentImage != null ? `<div class="post_image" id="view-imagem"><img class="post_image__img" src="${post.contentImage}"></div>` : ''}
                                              </div>
                                              <div class="post_footer">
-                                             <span class="post_footer-likesCount">${formatacaoLikes(post.likes)}</span>
-                                             <button class="post_footer-like" onclick="likePost(${post.id})" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
-                                             <span class="post_footer-likesCount">${comentarios.length}</span>
-                                             <label class="post_footer-like" for="post_comments__input">💬</label>
+                                                  <span class="post_footer-likesCount">${formatacaoLikes(post.likes)}</span>
+                                                  <button class="post_footer-like" onclick="likePost(${post.id})" ${localStorage.getItem('likedPosts') && JSON.parse(localStorage.getItem('likedPosts')).includes(post.id) ? 'disabled' : ''}>❤️</button>
+                                                  <span class="post_footer-likesCount">${comentarios.length}</span>
+                                                  <label class="post_footer-like" for="post_comments__input">💬</label>
                                              </div>
                                         `;
 
-                              postElement.innerHTML = postHTML;
+                                   postElement.innerHTML = postHTML;
 
-                              const postCommentsElement = renderComments(comentarios);
+                                   const postCommentsElement = renderComments(comentarios);
 
-                              const commentInputId = `comment-${post.id}`;
-                              const commentInput = document.createElement('input');
-                              commentInput.maxLength = 350;
-                              commentInput.classList.add('post_comments__input');
-                              commentInput.placeholder = `Comente sua opinião sobre o post de ${post.userName}`;
-                              commentInput.id = commentInputId;
-                              commentInput.addEventListener('keydown', (e) => {
-                                   if (e.key === 'Enter') {
-                                        commentPost(post.id, commentInput.value);
-                                   }
-                              });
+                                   const commentInputId = `comment-${post.id}`;
+                                   const commentInput = document.createElement('input');
+                                   commentInput.maxLength = 350;
+                                   commentInput.classList.add('post_comments__input');
+                                   commentInput.placeholder = `Comente sua opinião sobre o post de ${post.userName}`;
+                                   commentInput.id = commentInputId;
+                                   commentInput.addEventListener('keydown', (e) => {
+                                        if (e.key === 'Enter') {
+                                             commentPost(post.id, commentInput.value);
+                                        }
+                                   });
 
-                              postElement.appendChild(postCommentsElement);
-                              postElement.appendChild(commentInput);
+                                   postElement.appendChild(postCommentsElement);
+                                   postElement.appendChild(commentInput);
 
-                              feedBody.appendChild(postElement);
-                              hashtag();
-                         }
-                    }));
-               } catch (error) {
-                    console.error(error);
-               } finally {
-                    isCarregado = false;
-               }
-          }
-
-          function checkScroll() {
-               const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-               if (scrollTop + clientHeight >= scrollHeight - 5 && !isCarregado) {
-                    loadPosts();
-               }
-          }
-
-          window.addEventListener('scroll', checkScroll);
-
-          function commentPost(postId, comentario) {
-               const commentContent = {
-                    comment: comentario,
-                    postId: postId,
-                    userName: userInfos.User,
-                    userId: userInfos.Id_user,
+                                   feedBody.appendChild(postElement);
+                                   hashtag();
+                              }
+                         }));
+                    } catch (error) {
+                         console.error(error);
+                    } finally {
+                         isCarregado = false;
+                    }
                }
 
-               fetch('http://localhost:3000/post/comment', {
-                    method: 'POST',
-                    headers: {
-                         'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(commentContent),
-               })
-                    .then((response) => {
-                         window.location.reload();
+               function checkScroll() {
+                    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+                    if (scrollTop + clientHeight >= scrollHeight - 5 && !isCarregado) {
+                         loadPosts();
+                    }
+               }
+
+               window.addEventListener('scroll', checkScroll);
+
+               function commentPost(postId, comentario) {
+                    const commentContent = {
+                         comment: comentario,
+                         postId: postId,
+                         userName: userInfos.User,
+                         userId: userInfos.Id_user,
+                    }
+
+                    fetch('http://localhost:3000/post/comment', {
+                         method: 'POST',
+                         headers: {
+                              'Content-Type': 'application/json',
+                         },
+                         body: JSON.stringify(commentContent),
                     })
-                    .catch((err) => {
-                         console.log(err);
-                    });
-          }
-
-          window.addEventListener('load', loadPosts);
-
-          function likePost(postId) {
-               const hasLiked = localStorage.getItem('likedPosts') ? JSON.parse(localStorage.getItem('likedPosts')) : [];
-
-               if (hasLiked.includes(postId)) {
-                    return;
+                         .then((response) => {
+                              window.location.reload();
+                         })
+                         .catch((err) => {
+                              console.log(err);
+                         });
                }
 
-               hasLiked.push(postId);
-               localStorage.setItem('likedPosts', JSON.stringify(hasLiked));
+               window.addEventListener('load', loadPosts);
 
-               fetch('http://localhost:3000/post/like', {
-                    method: 'POST',
-                    headers: {
-                         'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ postId }),
-               })
-                    .then((response) => {
-                         window.location.reload();
-                    })
-                    .catch((err) => {
-                         console.log(err);
-                    });
-          }
+               function likePost(postId) {
+                    const hasLiked = localStorage.getItem('likedPosts') ? JSON.parse(localStorage.getItem('likedPosts')) : [];
 
-          function removePost(postId) {
-               fetch(`http://localhost:3000/post/delete/?postId=${postId}&userId=${userInfos.Id_user}`, {
-                    method: 'DELETE',
-               })
-                    .then((response) => {
-                         window.location.reload();
+                    if (hasLiked.includes(postId)) {
+                         return;
+                    }
+
+                    hasLiked.push(postId);
+                    localStorage.setItem('likedPosts', JSON.stringify(hasLiked));
+
+                    fetch('http://localhost:3000/post/like', {
+                         method: 'POST',
+                         headers: {
+                              'Content-Type': 'application/json',
+                         },
+                         body: JSON.stringify({ postId }),
                     })
-                    .catch((err) => {
-                         console.log(err);
-                    });
-          }
-     </script>
+                         .then((response) => {
+                              window.location.reload();
+                         })
+                         .catch((err) => {
+                              console.log(err);
+                         });
+               }
+
+               function removePost(postId) {
+                    fetch(`http://localhost:3000/post/delete/?postId=${postId}&userId=${userInfos.Id_user}`, {
+                         method: 'DELETE',
+                    })
+                         .then((response) => {
+                              window.location.reload();
+                         })
+                         .catch((err) => {
+                              console.log(err);
+                         });
+               }
+          </script>
